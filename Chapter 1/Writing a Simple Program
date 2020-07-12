@@ -1,0 +1,292 @@
+//We first begin with a simple statement and function, to help you familiar and start with C++ 
+
+//In a moment letter, we'll write a program to solve a simple problem for a bookstore
+//Bookstore numberber, contains three data elements:
+// 0 - 201- 70353 - X 4 24.99
+// The first element is an ISBN( International Standard Book Number)
+// The second elents is the number of copies sold, and the last is the price at which each of these copies was sold.
+
+//Before we get through our program, we could see the componenets we need for our program.
+- Define varaibles
+- Do input and output
+- Use a data strucutre to hold the data
+- Test whether two records have the same ISBN
+- Contain a loop that will process every record in the transaction file
+
+//1.1 Writing a Simple Program (Things about Function)
+// To start with our program, we first need to know that every C++ program contain one or more functions, then there must require a function that name main.
+
+Ex. 1 Example of main function (that does return nothing) :
+
+int main()
+{
+return 0;
+}
+
+// So, what is function, to define this, you need to know a function contain four elements
+- return type
+- a function name
+- a parameter list (it could be empty) enclosed in parentheses 
+- a function body
+
+Now we break into small detailed of a function 
+// From the Ex. 1 , you notice we return 0 in our function
+// The reasons we return 0 in our function because our main function is int, which represents integers 
+// The int type is a built-in-type, which mean that it is one of the types the languages defines (in the C++ library)
+// The last part is the function body, is a block of statement starting with a open curly brace { and endthing with a close curly } 
+// In Ex.1 , the only statement in this block is a return (which is a statement that terminates a function). At this case here, a return can also send a value back to the function's caller. For instance, 0
+
+Note: Most of the statements in C++ , the statements end by adding a semicolons mark at the end.
+
+Key concept: Types
+// We used type to create a data variable,or  data field,or  data type either the name
+// Data variable, used to store our data.
+
+1.1.1. Compiling and Executing our program
+//IDE - stand for Integrated Development Environment, that bundles the compiler with build and analysis tools. (Can be great asset in developing large program)
+Program Source File Naming Convention
+- Program files are normally referred to as a source files. 
+- Mostly end with a suffix conventions; .cc, .cxx, .cpp, .cp, and .c.
+Running the Compiler from the Command Line
+- If we are using a command-line interface, we will likely compile a program in a console window(such as a shell window on a Unix System or a Command Prompt windows on Windows)
+
+Assuming that our main program is in a file named prog1.cc, we might compile it by using a command such as 
+$ CC prog1.cc
+where cc names the compiler and $ is the system prompt.
+In windows, it would be $ prog1
+
+$ .\prog1, "." followed with a back-slash refer as current file directory. Or you could just type the entire file name, which we usually refer as full file directory.
+
+1.2. At first look at Input/Output
+//C++ does not define any statements to do input/ouput, it had already installed in the standard library.
+//In the book, we would used the iostream library. 
+//iostream represent two part, istream(input stream) and ostream(output stream)
+// The term stream is intended to suggest that the characters are generated,or consumed, sequentially over time.
+
+Standard input and output Objects
+//The library defines four IO objects.
+Input, we used an object of type istream named cin (pronounced see-in), refer as standard input.
+
+Output, we used an object of type ostream named cout (pronounced see-out), refer as standard output.
+
+The library also defines two other ostream objects, named cerr and clog (pronounced see-err and see-log), refer as standard error ( for warning and error messages).
+
+Cin - usually read from the windows in which prgoram is executing.
+Cout - Also in the same window
+
+A Program That Uses the IO library 
+- Ex. 2, how to add two numbers
+
+#include <iostream>
+int main(){
+  std :: cout << "Enter two numbers: " << std :: endl;
+  int v1, v2 = 0;
+  std :: cin >> v1 >>  v2;
+  std :: cout << "The sum of " << v1 << " and " << v2 << "is " << v1 + v2 << std :: endl;
+  return 0;
+}
+Steps:
+1.It will first print out the statements "Enter two numbers"
+2.Then, it will wait until the user input v1 and v2(two integer with a space between them)
+3. Finally, it will print put the msg "The sum of v1 and v2 is " + " sum of v1 and v2 " ;
+
+//The first line in our program,
+//The name inside angle bracket refer as header. Every program that uses library facility must include its assoicated header.
+//The #include is represent a directives for a program at the begining of the source file.
+
+Writing to a Stream
+- In Ex.2 The first statement in the body of main executes an expression. 
+- The expression in this statement use the output operator (the << operator) to print the messages on the standard output.
+- The << operators take two two operands : The left-hand operand must be an ostream object; The right-hand operand is a value to print.
+
+Cout << std :: endl
+//The second operators prints endl, it's call the manipulator, what it does is ending the current line and flushing the buffer associated with that device.
+// flushing the buffer to ensure all the output statement has been generated.
+
+Using Names from the standard library
+// Std :: are defined inside the namespace named std.
+
+Noted : Name space allowed us to avoid inadvertent collisions between the names we defines and used those same names inside a library.(All named defines by the standard library are in the std namespace)
+
+Reading from a Stream
+Variables
+int v1 = 0, int v2 = 0;
+std :: cin >> v1 >> v2:
+
+Steps:
+-Define type
+-Provide a name
+-Inialize it
+
+1.3 A word about Comments
+To write a comments in the program without affect it.
+//, A single line comment and ends with a newline
+/* abd */, inherited from C, the body part between /* and */ going become all commands
+
+1.4 Flow of Contorl
+//Statement usually access sequentially : The first statement access first, then follow by the second, and so on.
+
+1.4.1 A while statement 
+//Repeatly executes a section of codes until the condition is true.
+
+//Ex.3 While loop
+
+#include <iostream>
+
+int main()
+{
+  int sum = 0, val = 1;
+  
+  //keep executing the while as long as val is less than or equal to 10
+  
+  while (val <= 10)
+  {
+    sum += val;
+    ++val;
+  }
+  
+  std :: cout << "Sum of 1 to 10 inclusive is " << sum << std :: endl;
+  return 0;
+}
+
+//Now, from Ex.3, the only part you not familiar is not the while loop part
+//While loop become true while the "val" is less than or equal to 10.
+//Initially, we initalize our val = 1 and the sum = 0.
+//Then, inside the while loop, statement work as usual.
+// First, our variable "sum" plus integer 1 from the variable "val", therefore sum will become 1;
+// Now, ++val, mean add 1 to val, which change "val" become 2
+//Then, we check the condition, is "val"(2) less than or equal to 10. If yes, continue, if no, it stop.
+
+//++ operator, the increment operator add 1 to its operand.
+
+++val, it the same as, val = val + 1;
+
+1.4.2 The for Statement
+//In while loop, we used the variable "val" to control how many times we executes the loop.
+//For loop, similar as while loop
+
+//Ex.4 For loop
+#include <iostream>
+
+int main()
+{
+  int sum = 0
+  
+  //sum values from 1 through 10 inclusive
+  
+  //Pattern
+  for (int val = 1; val <= 10; ++ val){
+    sum += val;
+  }
+  
+    std :: cout << "Sum of 1 to 10 inclusive is " << sum << std :: endl;
+    
+   return 0;
+}
+
+1.4.3 Reading an Unknown Number of Inputs
+//While we using loop(while loop), we don't how much time the user want the program to executes.
+//In this case, we'll keep reading number until there are no more numbers to read;
+
+#Ex.5 Unknown Number to read
+#include <iostream>
+
+int main()
+{
+  int sum = 0, value = 0;
+  
+  //read until end-of-file, calculating a running total of all values read
+  while (std :: cin >> value){
+      sum += value;
+      std :: cout << "Sum is: " << sum << std :: endl
+  }
+   return 0;
+}
+
+std :: cin >> value
+// This condition is false only when you reach to the end-of-file or encounter an invalid input.
+//For instance, the data type of the varaible value is int(Integer), you could only enter integer number inside, else is invalid.
+
+Note: Be ware of Type Error, and the Declartion Error while doing the while loop. 
+//Declartion error occured when your varaible name is similar as the namesapde(std) name, and the compiler would think you were wrong.
+
+1.4.4 The If Statement
+#include <iostream>
+
+int main()
+{
+  //currval, the number that we're counting; we'll read new values into val
+  int currval = 0, val = 0;
+  
+  if (std :: cin >> currval){
+    int cnt = 1;
+    
+    while (std :: cin >> val){
+      if (val == currval){
+          ++cnt;
+      }
+      else{
+      
+        std :: cout << currval << "occurs " << cnt << " times" << std :: endl;
+        currval = val;
+        cnt = 1;
+      }
+    }//while loop end here
+    
+    std :: cout << currval <<  "occurs " << cnt << " times" << std :: endl;
+    
+  }
+   return 0;
+}
+
+(Consider on review )
+//---------------------------------------------------------------------------------------------------------------------------------------
+1.5. Introducing Classes
+//The last step to solve our bookstore problem is to define a data structures to represent our transcation data.
+// Define data structure = Class
+
+Steps to define a class
+- What is its name?
+- where is it defined ?
+- What operating does it support ?
+
+// Now, let's assumed our class named is called Sales_item and that is already defined in a header named Sales_item.h
+// Usually the compiler don't mind the form of header file form, but IDES sometimes do.
+
+1. 5. 1 The Sales_item Class
+//The purpose of the Sales_item class is to represent the total revenue, number of copies sold, and average sales price for a book.
+
+//Ex.6 Writing a Sales_item Class
+
+#include <iostream>
+#include "Sales_item.h"
+
+int main(){
+  Sales_item book;
+  //read ISBN, number of copies sold, and sales price
+  
+  std:: cin >> book;
+  
+  //write ISBN, number of copies sold, sales price, and average price
+   
+  std :: cout << book << std :: endl;
+  
+  return 0;
+  
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
