@@ -1,0 +1,287 @@
+//Exercise 1.1
+//Review the documentation for your compiler and determine what file naming convention it uses. Compile and run the main program from page 2
+
+int main()
+{
+    return 0;
+}
+
+//(0xo)
+
+
+//Exercise 1.2  Change the program to return -1. A return value of -1 is often treated as an indicator that the program failed.
+//Recompile and rerun your program to see how your system treat a failure indicator from main.
+
+int main()
+{
+    return -1;
+}
+
+Result:
+//(0xFFFFFFFF)
+
+//Exercise Section 1.2
+Ex.1.3 
+//Write a program to print Hello World on the standard output :
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    cout << "Hello World" << endl;
+
+    return 0;
+}
+
+Ex 1.4
+//Our program used the addition operator, + , to add two numbers. 
+//Write a program that uses the multiplication operator, *, to print the product instead.
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    cout << "Enter two integer numbers: ";
+
+    int v1 = 0 , v2 = 0;
+
+    cin >> v1 >> v2;
+
+    cout << endl;
+
+    cout << "The multiply of v1 and v2 = " << v1 * v2 << endl;
+
+
+    return 0;
+}
+
+Ex 1.5 
+//We wrote the output in one large statement. 
+// Rewrite the program to use a separate statement to print each operand
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    cout << "Enter two integer numbers: ";
+
+    int v1 = 0 , v2 = 0;
+
+    cin >> v1 >> v2;
+
+    cout << endl;
+
+    cout << "The first operator is: " << v1 << endl;
+
+    cout << "The second operator is: " << v2 << endl;
+    
+    return 0;
+}
+
+Ex 1.6
+//Explain wheter the following program fragement is legal.
+
+std :: cout << "The sum of " << v1; 
+       << " and " << v2; 
+       << " is " << v1 + v2 << std :: endl;
+Result: Wrong, putting a semicolons at the end of the statement
+represent the end of the statement. 
+Even you add a left-hand operand << in the next line, there's going to have an error, it said
+it's not a string txt line. 
+
+//The way to fix it, is to remove the semiconlons in the first and the second line.
+    cout << "The sum of " << v1
+         << " and " << v2
+         << " is " << v1 + v2 << endl;
+
+//Excerise Section 1.3
+Ex 1.7 Compile a program that has incorrectly nested comments.
+
+Result : 
+/*
+/* */
+*/
+
+Ex 1.8 Indicate which, if any, of the following output statement are legal
+std :: cout << "/*" ; 
+A: legal;
+std :: cout << "*/" ; 
+A: legal;
+std :: cout << /* " */ " */ ;
+A : Not legal;
+std :: cout << /* " */ " */* " "/*" */;
+A : Not LEAGL;
+
+//Exercise Section 1.4.1
+Ex. 1.9
+//Write a program that uses a while to sum the numbers from 50 to 100.
+#include <iostream>
+
+using namespace std;
+
+
+int main()
+{
+    int i = 50;
+    int sum = 0;
+    while (i <= 100){
+        sum += i;
+        ++i;
+    }
+    cout << "The sum between 50 to 100 is " << sum << endl;
+    return 0;
+}
+
+Exercise 1.10
+//In addition to the ++ operator that adds 1 to its operand, there is a decrement operator
+(--) that subtracts 1. 
+//Use the decrement operator to write a while that print the numbers from ten down to zero.
+#include <iostream>
+using namespace std;
+int main()
+{
+    int i = 11;
+    while (i >= 1 ){
+        --i;
+         cout << "The number is " << i << endl;
+    }
+    return 0;
+}
+
+Ex 1.11 
+// Write a program that prompts the uses for two integers.
+/Print each numbers in ranged specified by those two integers.
+#include <iostream>
+using namespace std;
+int main()
+{
+    cout << "Enter two randown integers ";
+
+    int v1 = 0, v2 = 0;
+    cin >> v1 >> v2;
+
+    if (v1 > v2 ){
+        while (v1 - 1 > v2){
+            ++ v2;
+            cout <<  v2 << endl;
+        }
+    }
+    else{
+         while (v2 - 1 > v1){
+            ++ v1;
+            cout <<  v1 << endl;
+        }
+    }
+    return 0;
+}
+
+//Exercise Section 1.4.2
+Ex. 1.12
+//What does the following for loop do ? What is the final value of sum
+int sum = 0;
+for (int i = - 100; i <= 100; ++i)
+  sum += i;
+  
+ Result: In the for loop, the variable "sum" is adding negative 100 through 0 (-1 everytime it execute)
+ Total result should be -5050
+ 
+ Ex 1.13
+ //Rewrite the first two exercise from 1.4.1 using for loops
+ int sum = 0;
+ for (int val = 1; i <= 0; ++i) {
+  sum += val;
+ }
+ std :: cout << "The sum of 1 to 10 inclusive is " << sum << std :: endl;
+ 
+ Ex 1.14
+ //Compare and contrast the loops that used a for with those using a while. 
+ //Are there advantages or disadvantages to using either form?
+ Result:
+ For loop is much more like a pattern, it's very helpful when we using to defined range of value to iterate over.
+ While loops is when you aren't iterating,or don't know certain condition is met.
+ 
+ Ex 1.15
+ //Write a program that contain the common errors discussed in the box on page 16.
+ //Familiarize yourself with the messages the compiler generates.
+ 
+ #include <iostream>
+ int main()
+ {
+  int v1 =0, v2 = 0;
+  std :: cin >> v >> v2; // error : it should be v1 instead of v
+  cout << v1 << v2 << std :: endl // error : cout not define, should std :: cout
+  return 0;
+ {
+ 
+ Ex 1.16
+ //Write your own version of sum a set of integers read from cins 
+ #include <iostream>
+using namespace std;
+int main()
+{
+    cout << "Enter the integers: ";
+
+   int sum = 0;
+   int v1;
+    while (cin >> v1){
+        sum += v1;
+    }
+    cout << endl;
+    cout << "Result of sum:  " << sum << endl;
+    return 0;
+}
+
+ //Exercises Section 1.4.4
+ Ex 1.17
+ //What happens in the program presented in this section if the input values are all equal?
+ //What if there are no dupliated value
+ 
+ Result : It will repeatly printing until you input different value or a letter
+ Result : The result will appear once you have a different value. (Normally the second one)
+ 
+ Ex 1.18
+ //Compile and run the program ffrom this seciont giving it only equal values as input. Run it again giving it value in which no number is repeated.
+ 
+ Result :
+ It will only appear the first repeat value
+ 
+ Ex 1.19
+ //Revise the program you wrote for the exercises in 1.4.1 that printed a range of numbebers 
+ //so that it handles input in which the first numbers is smaller than the seond.
+ #include <iostream>
+using namespace std;
+int main()
+{
+    cout << "Enter the integers: ";
+
+    int v1 = 0, v2 = 0, sum = 0;
+
+    cin >> v1 >> v2;
+
+    if (v1 < v2 ){
+
+        for (int n = v1 + 1 ;n < v2; ++n){
+            sum += n;
+        }
+    }
+    else {
+         for (int n = v2 + 1;n < v1; ++n){
+            sum += n;
+        }
+    }
+    cout << endl;
+    cout << "Result of sum:  " << sum << endl;
+    return 0;
+}
+
+
+ 
+ 
+ 
+ 
+
