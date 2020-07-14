@@ -1,0 +1,233 @@
+2.1 Primitive Built-in Types
+//C++ defines a set of primitive type that include the arithmetic types and a speical type named void.
+//For arithmetic type, it represents integers, character, boolean values, and floating-point numbers.
+// The void type has no associated values and can be used in only a few circumstances, mostly used in return type if you do not return a value.
+
+Type : bool, char, wchar_t, char16_t, char32_t, short, int, long, long long, float, double, long double.
+
+Meaning: boolean, character, wide character, Unicode Character(16, 32), short integer, integer, long integer(32, 64), single-precision floating point, double-precision floating point, extended-precision floating-points.
+
+Bits size: NA, 8 bits, 16 bits, 16 biys, 32 bits, 16 bits, 16 bits, 32 bits, 64 biys, 6 significant digits, 10 significiant digits, 10 s.d
+
+//A char is guaranteed to be big enough to hold numeric values corresponding
+
+Signed and Unsigned Tyes:
+//Except for bool and the extended character types, the integral type can be signed or unsigned
+//A signed type represents negative or positive numbers(including numbers)
+//Unsigned type represetn only values greater than or eqaul to zero.
+//The types int,short,long, and long long are all signed.
+//You could always adding unsigned to the type, such as unsigned long.
+
+2.1.2 Type Conversions
+The type of an object defines the data that an object might ontain and what operations that object can perform
+//Type conversions happen automatically when we use an object of one types where an object of another type is expcected.
+
+
+For instance :
+bool b = 42; //b is true, is false only when the result is 0, otherwise is true
+int i = b; // i has value 1, boolean only have two results, 0 (false), 1 (true), since b is true, wihch mean i = 1
+i = 3.14 // i have value 3 Assign a float or double value to an integer variable, it will truncated it.
+double pi = i // pi has value 3.0 Since i = 3, assign an integer to a double varaible, the fractional part is zero.
+unsigned char c = -1; // assuming 8-bit chars, c has value 255, assign an out-of-ranged value of unsigned type
+signed char c2 = 256 // underfined, assign an out-of-ranged value of signed type, the result is underfined.
+
+Expression Invloving Unsigned Types
+//If we use both unsigned and int values in an arithmetic expression, the int value ordinarily is converted to unsigned.
+//Converting an int to unsigned executes the sawy ways as if we assigned the int to an unsigned
+
+Ex 1.1 
+unsigned u = 10;
+int i = -42
+std :: cout << i + i << std::endl;
+std :: cout << u + i << std :: endl; //if 32-bit ints, prints 4294967254
+
+//At first, we adding the int value -42 to get what we expected.
+//In the second expression, the int value -42 convert into unsigned value before we do the adding.
+
+Ex 1.2
+unsigned v1 = 42;
+unsigned v2 = 10;
+
+cout  << v1 - v2 << endl; //The result is 32
+cout  << v2 - v1 << endl; // It cannot be less than zero , it will wrap around.
+
+2.1.3 Literal
+Specific the Type of a Literal
+
+Prefix  Meaning         Type
+u       Uni.16Charcter  char16_t
+U       Uni.32Character char32_t
+L       wide character   wchar_t
+u8      utf-8(string literals only) char
+
+Escape Sequences
+newline \n
+Horizontal tabe \t
+Alert \a
+vertical tabe \v
+backspace \b
+double quote \"
+backslash \\
+question mark \?
+single quote \?
+carraige return \r
+formfeed \f
+
+2.2 Variables
+//Variable : consists of a type_specificer, followed by a list of one or more variable name separated by commas, and end with a semicolons
+//String type represent a variable-length sequence of characters. (Representatives)
+
+Initializers
+//An object that is initialized gets the specified value at the moment is created.
+
+Note : Initialization is not assigment. Initialization happens when a variable is given a value when it is created.
+Assigment obliterates an object's current value and replaces that value with a new one.
+
+List of Initialization:
+/Always can use any of the following four different ways to define an int varaible named units_sold and initialize it to 0;
+int units_sold = 0;
+int units_sold = {0};
+int units_sold{0};
+int units_sold(0);
+
+Default Initialization:
+When we define a varaible without an initializer, the variable is default initalized.
+
+2.2.2 Variable Declarations and Definitions
+//Separate compliation : let us split our program into serval files, each of whicn can be compiled independently.
+//A declaration makes a name known to the program.
+//A file that wants to use a name defined elsewhere includes a declaration for that name.
+//A definition created the associated entity.
+
+2.2.3 Identifiers
+//Identifiers in C++ can be composed of letters, digits, and the underscore character.
+
+For instance:
+int somename, someName, SomeName, SOMENAME
+
+Conventions for Variable Name
+-An identifier should give someindication of its meaning
+-Variable names normally are lowercase
+-Like Sales_item, classes we define usually begin with an uppercase letter.
+-Identifiers with multiple words should visually distinguish each word.
+
+2.2.4 Scope of Names
+//A scope is a part of the program in which a name has a particular meaning.
+//The name main- like most named defined outside a function - has global scope.
+//Once it declared, it accessable though the whole program.
+//Block Scope, only access a body part of the program instead of whole, depend on where you placed in the function
+
+2.3. Compund Types
+//A compund type is a type that is defined in terms of another type.
+//A declaration is a base type fp;;pwed by a list of declarators.
+
+2.3.1 References
+//A reference deines an alternative name for an object.
+//We defined a reference type by writing a declarator of the form &d
+// Refernece must be initalized.
+
+Note : A reference is not an object. Instead, a reference is just another name for an already exisitng object.
+
+2.3.2 Pointers
+//A pointers is a compund type that "points to " another type.
+//Like references, points are used for indirect access to other objects.
+//Unlike a reference, a pointer is an objects in its own right.
+//Pointers can be assigned and copied; a signle pointer to several different objects over its lifetime.
+//It doesn't require to be initialized at the time it is defined.
+
+//We define a pointer type by wwriting a declarator of the form *d, where d is the name being defined.
+
+For instance:
+int *ip1, *ip2; //both ip1 and ip2 are pointers to int
+
+double dp, *dp2 // dp2 is a pointer to double, dp is a double
+
+Taking the Address of an Object
+//A pointer holds the address of another object. 
+
+For instance
+
+int ival = 42;
+int *p = &ival // p holds the address of ival; p is a pointer to ival
+
+//The second statement defines p as a pointer to int and initializes p to point to the int object named inval.
+//Because references are not objects, they don't have addresses.
+//Hence, we may not define a pointer to a reference.
+
+Pointer Value:(Four condition )
+1.It can point to an object
+2.It can point to the location just immediately past the end of an object
+3. It can be null pointer, does not bound to any object
+4. It can invalid; values other than the preceding rhree are invalid.
+
+Using a Pointer to Access an Object
+//When a pointer point to an object, we can use dereference operator ( the * operator) to accesss that object.
+
+int ival = 42;
+int *p = &ival; //p holds the address of ival; p is a pointer to ival
+cout << *p; //Print 42;
+
+Null Pointer:
+//A null pointer does not point to any object.
+
+//Cases that you can have null pointer
+int *p1 = nullptr // equivalent to int *p1 = 0;
+int *p2 = 0;
+
+2.4 const Qualifier:
+//We can make a variable unchangeable by defining the variable's type as const:
+
+const int bufSize = 512;
+
+2.4.1 References to const:
+//We can always bind a reference to an object of a const type.
+//If the object is a constant, then the reference must also a const
+
+const int ci = 1024;
+const int &r1 = ci; // ok : both reference and underlying.
+r1 = 42;
+int &r2 = ci; //error : non const reference to a const object
+int *p3 = Null;
+
+//We can bind a reference to const to a nonconst object
+int i =42;
+const int &r1 = i;
+const int &r2 = 42;
+const int &r3 = r1 * 2
+int &r4 = r1 * 2; //error : r4 is a plain, not const reference
+
+2.4.2 Pointers and const
+//Like a reference to const, a pointer to const may not usedto change the object to which the pointer points.
+//We may store the address o a const object only in a pointer to const:
+
+Ex
+const double pi = 3.14 // pi is const, its value may not changed
+double *ptr = &pi; //error ptr is a plain pointerm not const pointer
+const double *cptr = &pi // ok : cptr may point to a double that is const
+*cptr = 42 // error : cannot assign to *cptr, because it is const
+
+2.5 Dealing with Types
+2.51 Type Aliases
+//A type alias is a name that is a synonym for another type.
+//Help us simplify complicated type definitions,making those types easier to use.
+
+Two ways define a type alias.
+1.typedef
+
+typedef double wages;
+typedef wages base, *p;
+
+2.Alias declaration
+using SI = Sales_item 
+
+//An alias declaration starts with the keyword using followed by the alias name and an =;
+
+//Declaration that use type aliases that represent compund types and const can yield surprising result
+
+typedef char *pstring;
+const pstring cstr = 0; // cstr is a constant pointer to char
+const pstring *ps; //ps is a pointer to a constant pointer to char.
+
+//The type of pstring is pointer to char, so const pstring is a constant pointer to char- not a pointer to const char.
+
+2.5.2
