@@ -230,4 +230,71 @@ const pstring *ps; //ps is a pointer to a constant pointer to char.
 
 //The type of pstring is pointer to char, so const pstring is a constant pointer to char- not a pointer to const char.
 
-2.5.2
+2.5.2 The auto Type Specifier
+// Auto type Specifier - Unlike type specifiers, such as double, that name a specific type.
+//The auto tells the compiler to deduce the type from the initializer.
+//By implication, a variable that uses auto as its type specifier must have an initializer.
+
+Ex.
+//The type of item is deduced from the type of the result of adding val1 and val2
+auto item = val1 + val@; // item initialized to the result of val1 + val2.
+
+Compund Types, const, and auto：
+//First, the complier uses that object's type for auto's type deduction.
+int i = 0, &r = i;
+auto a = r;
+//Second, auto ordinarily ignores top-level constS.
+
+const int ci = i, &cr = ci;
+auto b = ci; // b is an int (top-level const in ci is dropped)
+
+auto c = cr; // c is an int (cr is an alias for ci whose const is top-level)
+
+auto d = &i; // d is an int*(& of an int object is int*)
+
+auto e = &ci; e is const int*(& of a const object is low level const)
+
+2.5.3 The decltype Type Specifier
+//If we want to define a variable with a type that the compiler deduces from an expression but do not want to use that expression to initialize the variable.
+//There's a new standard, second type specifier, decltype, which returns the type of its operand.
+
+For Instance:
+decltype(f()) sum = x; // sum has whatever type f returns/
+
+More examples:
+
+const int ci = 0; &cj = ci;
+decltype(cj) x = 0; // x has type const int
+decltype(cj) y = x; // y has type const int& and is bound to x;
+decltype(cj) z; //error : z is a referene and must be initalized.
+
+//When we apply decltype to an expression that is not a varaible, we get the type that the expression yields.
+
+//decltype of an expression can be a reference type
+int i = 42, *p = &i, &r = i;
+
+decltype(r + 0) b; // ok : addition yields an intl b is an (uninitialized ) int
+
+decltype (*p) c; //error : c is int& and must be initalized.
+
+2.6. Defining Our Own Data Structures
+//In C++ we define our own data types by defining a class.
+
+2.6.1 Defining the Sales_data Type
+Example:
+
+struct Sales_data {
+
+  std :: string bookNo;
+  unsigned units_sold = 0;
+  double revenue = 0.0;
+  
+  //All of these are data field from the Sales_data Class.
+};
+
+//The class body define the members of the class. 
+//Our class has only data members. 
+//Each object has its own copy of the class data members.
+//Modifiying the data members of one object does not change the data inother Sales_data object.
+
+
