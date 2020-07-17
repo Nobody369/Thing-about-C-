@@ -1,0 +1,194 @@
+Exercises Section 2.1.1
+//Ex 2.1
+//What are the differences between int, long, long long, and short? 
+//Between an unsigned and a signed type?
+//Between a float and double?
+
+Answer:
+1.The differences between int, long, long long, and short is their their size of bits.
+2. A signed type represents negatve or positive numbers and unsigned represent only the values greater than or equal to zero. 
+3. They were all floating-point types represent single (float） and double precision values. Float represent in one words(32 bits) and double represent (64 bits)
+
+//Ex 2.2
+//To calculate a mortgage payment, what types would use for the rate, principal, and payment? Explain why you selected each type.
+//I would choose the types with the floating point, such as float, double, and long double.
+//However, personaly I would like to used double for the rate, principal, and payment, because float doesn't hav enough precision, and double-precision could be faster than single. The long double one is unneccsary because it could too long to run.
+
+Exercises Section 2.1.2
+//Ex 2.3-4
+//What output will the following code produce?
+//Write a program to check whether your predictions were correct. If not, study this section until you understand what the problem is?
+unsigned u = 10, u2 = 42;
+std :: cout << u2 - u << std :: endl; //Hypothesis : It will print out the value 32
+std :: cout << u - u2 << std :: endl; //Hypothesis : since u is smaller than u2, and unsigned type can't smaller than 0, so it would positive value, it will wrap around.
+
+int i = 10, i2 = 42;
+std :: cout << i2 - i << std :: endl; //Hypothesis : 32
+std :: cout << i - i2 << std :: endl; //Hypothesis : -32
+
+std :: cout << i - u << std :: endl; //Hypothesis : It would be zero
+std :: cout << u - i << std :: endl; //Hypothesis : It's going be zero
+
+
+
+Exercises Section 2.1.3
+//Ex 2.5
+//Determine the type of each of the following literals. Explain the differences among the literals in each of the four examples.
+a. 'a', L'a', "a", L"a"
+Answer, char, wide char, string, wide string
+
+b. 10, 10u, 10L, 10uL, 012, 0xC
+Answer, int, unsigned int, long int, binary 1010,, int, 0xC Decimal 12
+
+c. 3.14, 3.14f, 3.14L
+Answer: double, floating point, Long double
+
+d.10, 10u, 10., 10e-2
+Answer : int, unsigned int, double, double (10 * 10^-2) = 10/100
+
+//Ex 2.6
+//What, if any, are the differences between the following definitions:
+//Those Integers literal begin with 0 are interpreted as octal. 0x are interpreted as hexadecimal.
+
+20 / * decimal * / 024 /* octal */ 0x14 // hexadecimal */
+
+int month = 9, day = 7
+int month = 09, day = 07;
+
+//If you write 0, there will be octal, and octal only have digits from 00 - 07
+
+//Ex 2,7
+//What values do these literals represent?
+//What types does each have?
+a. "Who goes with F\145rgus?\012"
+Answer : String, \145 substituted with char(255-145), \012 isngle newline
+b. 3.14e1L
+Answer : long double
+c. 1024f
+Answer : Float point
+d. 3.14L 
+Answr : Long double
+
+//Ex 2.8
+//Using escape sequences, wirte a program to print 2M followed by a newline. Modify the program to print 2, then a tab, then an M, followed by a newLine.
+
+std :: cout << 2 << "\t" << "M" << "\n" << std :: endl;
+
+Exercises Section 2.2.1
+//Ex 2.9
+//Explain the following definitions. For those tha are illegal, explain what's wrong and how to correct it.
+a. std LL cin >> int input_value;
+Answer :: Need to be initalize first, the input_value need to be set equal 0.
+
+b. int i = {3.14};
+Answer :: This is not an array, if you want to have an integer array, you need to add the braces behind i, like int i [] = {3.14};
+
+c. double salary wage = 9999.99;
+Answer : The expression way is incorrect, you could either correct in two ways.
+1. double salary = 9999.99, wages = 9999.99;
+2. double salary = 9999.99;
+   double wages = salary;
+   
+d. int i = 3.14;
+Answer : integer don't have any floating point, if you initalize i to 3.14, the compiler will auto-correct into 3.
+//Use double type
+
+Exercise 2.10
+//What are the inital values, if any, of each the following variables.
+std :: string global_str;
+int global_int;
+int main()
+{
+  int local_int;
+  std :: string local_str;
+}
+
+Answer : The default initalizer for string is empty.
+
+Exercises Section 2.2.2
+//Ex 2.11
+//Explain whether each of the following is a declaration or a definition;
+
+  (a) extern int ix = 1024;
+Answer : declare ix = 1024, but it's error to provide an initialzer on an extern inside a function.
+
+  (b) int iy; 
+Answer : declare and define iy;
+
+ (c) extern int iz;
+Answer : declare but didn't define iz;
+
+Exercise Section 2.2.3
+//Ex 2.12
+//Which, if any, of the following names are invalid?
+(a) int double = 3.14 //invalid
+
+(b) int _; 
+
+(c) int catch-22 // invalid, can't have a upper underscore
+
+(d) int 1_or_2 = 1; // invalid, can't have more than one lower underscore(_)
+ 
+(e) double Double = 3.14 // invalid.
+ 
+Exercise Section 2.2.4
+//Ex. 2.13
+//What is the value of j in the following program?
+
+int i = 42;
+int main()
+{
+  int i = 100;
+  int j = i;
+}
+
+Answer : J = 100;
+
+//Ex 2.14
+//Is the following program legal? If so, what values are printed?
+
+int i = 100, sum = 0;
+for (int i = 0; i != 10; ++i)
+  sum += i;
+std :: cout << i << " " << sum << std :: endl;
+
+Hypothesis : It doesn't seem legal, i has already initalized in the first place, and the for loop i have the same name.
+Answer : It is possible, because the inner scope in the for loop won't affect the outer scope.
+
+Exercises Section 2.3.1
+//Ex 2.15
+//Which of the following definitions, if any, are invalid? why?
+(a) int ival = 1.01;
+a: Declare and define ival equal 1.01;
+
+(b) int &rval1 = 1.01;
+a: the references of rval = 1.01;
+
+(c) int &rval2 = ival;
+a: the references of rval2 is a references of ival;
+
+(d) int &rval3; 
+a :: error, references must be initialized 
+
+//Ex 2.16
+//Which, if any, of the following assignments are invalid ? If they are invalid, explain what they do
+
+int i = 0, &r1 = i; double d = 0, &r2 = d;
+
+a. r2 = 3.14159;
+
+b. r2 = r1; // Error : Initializer must be an double object
+
+c. i = r2; // Error : integer can't refer to a double referenc
+
+d. r1 = d; r1 can only hold integer reference
+
+//Ex 2.17
+//What does the following code print?
+
+int i, &ri = i;
+i = 5; ri = 10;
+std :: cout << i << " " << ri << std :: endl;
+
+Hypothesis : Print out i = 5, and ri = 10.
+Answer : Print out i = 10, and ri = 10, ri is the reference of i, once ri changed, i will changed, therefore when ri = 10, i = 10.
