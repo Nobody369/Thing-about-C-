@@ -192,3 +192,141 @@ std :: cout << i << " " << ri << std :: endl;
 
 Hypothesis : Print out i = 5, and ri = 10.
 Answer : Print out i = 10, and ri = 10, ri is the reference of i, once ri changed, i will changed, therefore when ri = 10, i = 10.
+
+Exercises Section 2.3.2
+//Ex 2.18
+//Write code to change the value of a pointer. Write a code to change the value to which the pointer points.
+
+ #include <iostream>
+using namespace std;
+
+
+int main()
+{
+
+    int ival = 0; // ival initialize is zero;
+
+    int *p = NULL; // Null pointer, point to no object
+
+    p = &ival; // P is the pointer of ival
+
+    std :: cout << ival  << std :: endl;
+
+    *p = 6; // Changed P is the pointer of 6;
+
+    std :: cout << ival << std :: endl;
+
+  return 0;
+}
+
+//Ex 2.19
+//Explain the key differences between pointers and references.
+
+Answer : Pointer is kind like references, pointers are used for indirect access to other object.
+         Unlike a references, a pointer is an object in its own right. 
+         Pointer can be assigned and copied. Also can be unitialized when its definied.
+         
+//Ex 2.20
+//What does the following program do?
+
+int i = 42; // Initalized and define i = 42;
+int *p1 = &i; // p1 is the pointer that holds the address of i
+*p1 = *p1 * *p1; // Multiplying the value, which the references holds, and the pointer holds the references.
+
+//Ex 2.21
+//Explain each of the following definitions. Indicate whether any are illegal and, if so, why.
+
+int i = 0;
+
+(a). double* dp = &i; //The pointer type is double, it can't hold a integer references address.
+
+(b). int *ip = i; // Can't assign an int to a
+
+(c) int *p = &i; // The pointer p is initialized and hold the address of i.
+
+//Ex 2.22
+//Assuming p is a pointer to int, explain the following code;
+
+if (p) // ....
+Answer : If p is already the point to int, which the if statement is checking either p is a pointer and has a value
+if (*p) // ....
+Answer : If *p is a pointer of a pointer.
+
+//Ex 2.23
+//Given a pointer p, can you determine whether p points to a valid object? If so, how? If not. why not?
+
+Answer : Simple, using the previous example but check the condition is not Null, if (p) is not null, then the condiiton is true, else is false.
+
+//Ex 2.24
+//Why is the initialization of p legal but that of lp illegal?
+
+int i = 42; 
+void *p = &i;  // void is a special pointer type that can hold the address of any object.
+long *lp = &i; // A long type can't hold an references of a integer object.
+
+Exercises Section 2.3.3
+//Ex 2.25
+//Determine the types and values of each of the following variables.
+
+(a) int *ip, i , &r = i;
+
+ip = initializedpointer ip but hold no address 
+i = integer 
+&r = r is the references of i.
+
+(b) int i, *ip = 0;
+i = integer
+*ip = ip is initialized but addresses no object
+
+(c) int *ip, ip2;
+*ip = initializedpointer ip but hold no address 
+ip2 = integers
+
+Exercises Section 2.4
+//Ex 2.26
+//Which of the following are legal? For those that are illegal, explain why.
+
+(a) const int buf; //constant variable must be initialized 
+(b) int cnt = 0;
+(c) const int sz = cnt
+(d) ++cnt; ++sz; //cnt increase by one, but sz remain constant.
+
+Exercises Section 2.4.2 
+//Ex 2.27
+//Which of the following initializations are legal ? Explain why.
+
+(a) int i = -1, &r = 0; //Invalid initialization, of non-constant references type of type 
+(b) int * const p2 = &i2; // p2 will always point to i2
+(c) const int i = -1, &r = 0 // Valid, it's constant varaible and references
+(d) const int *const p3 = &i2; //  p3 is a constant pointer to a const object, if i2 is constant
+(e) const int *p1 = &i1; // Invalid, the pointer itself isn't const because isn't putting the const after the *.
+(f) const int &const r2; // Invalid, the constant references must be initialized 
+(g) const int i2 = i, &r = i; // Invalid, a nonconstant references refer to a constant variable i.
+
+//Ex 2.28
+// Explain the following definitions. Identify any that are illegal.
+(a) int i, *const cp;  // illegal, constant pointer must be initialize
+(b) int *p1, *const p2; // illegal, constant point must be initialized.
+(c) const int ic, *r = ic // illegal, non-constant refer to a constant variable
+(d) const int * const p3; // illegal, the format is correct, but const variable must be initialized
+(e) const int *p; // illegal, incorrect constant format.
+
+//Ex 2.29
+//Using the variables in the previous exercise, which of the following assigment are legal?
+//Explain why.
+(a) i = ic // Legal, it just copied the value into i.
+(b) p1 = p3 // incorrect, invalid conversion, p1 is non-constant pointe, p3 must hold a constant reference, and p1 can't able hold a constant reference
+(c) p1 = &ic; // Incorrect, invalid conversion, same reason from b
+(d) p3 = &ic; // Legal, a constant pointer holding a constant refer address of p3
+(e) p2 = p1; //Illegal, invalid conversion
+(f) ic = *p3; //Illegal, ic is a constant variable, and can't equal to a pointer of p3.
+
+Exercises Section 2.4.3
+//Ex 2.30
+//For each of the following declaration indicate whether the object being declared has top-level or low-level const
+
+const int v2 = 0;  // top-level constant
+int v1 = v2; // top level constant
+int *p1 = &v1, &r1 = v1; // low level constant
+const int *p2 = &v2, * const p3 = &i, &r2 = v2; //low level constant
+         
