@@ -260,3 +260,149 @@ If we give this program the input :
 
 the ouput will be 
 Your hex number is : C05F8F
+
+3.3 Library Vector Type
+//A vector is a collection of objects, all of which have the same type.
+//Every object in the colleciton has an associated index, which gives access to that object.
+//A vector is often refer as a container because it "contains" other objects.
+
+//To use vector, we must use appropriate using declaration is made.
+
+#include <vector>
+using std :: vector;
+
+//A vector is a class template.
+//The process that the compiler uses to create classes or functions from templates is called instantiation.
+
+vector<int> ivet; // ivec holds object of type int
+vector <Sales_item> Sales_vec; // holds Sales_item
+vector <vector<string>> file; //vector whose elements are vectors
+
+Note :
+//Vector is a template, not a type.
+//Type generated from vector must include the element type, for example <int>
+
+3.3.1 Defining and Initializing Vectors.
+//Table 3.4. Ways to Initialzie a vector
+vector <T> v1   //vector that holds objects of type T. Default initializaiton;
+vector <T> v2(v1) // v2 has a copy of each elements in v1
+vector <T> v2 = v1 // Equivalent to v2(v1), v2 is a copy of the elements in v1.
+vector <T> v3 (n,val) // v3 has n elements with value val
+vector <T> v4(n) // v4 has n copies of a value-initialized object.
+vector <T> v5{a,b,c ...} //v5 has as many elements as there are initializers; elements are initalized by corresponding initializers.
+vector <T> v5 = {a,b,c ...} // Equivalent to v5(a,b,c...)
+
+//We can default initialize a vector, which creates an empy vector o the specified type:
+vector <string> svect; //default initialization; svec has no elements
+
+vector <int> ivec; // initially empty
+//give ivec some values
+vector <int> ivec2(ivecct); // copy elements of ivec into ivec2
+vector <int> ivec3 = ivec; // copy elements of ivec into iverc3
+vector <string> svec(ivec2); // error : svec holds strings, not int.
+
+List Initialzing a vector:
+vector <string> articles = {"a", "an", "the"};
+
+Creating a Specified Numbers of Elements:
+vector <int> ivec(10,-1); // ten int elements, each initialized to -1
+vector <string> svec(10, "hi"); // ten string, fill in each element with "hi"
+
+Value Initialization:
+//We can usually omit the value and supply only a size.
+//In this case the library creates a value-initialized element initializer for us.
+
+For instance:
+vector <int> ivec (10); // ten elements, each initialized to 0;
+vector <string> svec (10); // ten elements, each an empty string.
+
+//There are two restrictions on this form of initialization:
+1.Some calsses require that we always supply an explicit initalizers.
+2.When we supply an element count without also supplying an inital value, we must use the direct form of initialzation
+
+For instance:
+
+vector <int> vi = 10; //error : must use direct initialzation to supply a size.
+
+
+3.3.2. Adding Elements to a vector
+//When we want to have a list of vector from 0 to 9, it eazy to initialize it.
+//However, What if we wanted elemenets from 0 to 99 or 0 to 999? If will required lot of time to initialize it.
+//Therefore, it would be better if we create an empy vector and use a vector member named push_back to add elements at run time.
+
+vector <int> v2; // empty vector
+for (int i = 0; i != 100; ++i)
+  v2.push_back(i); //append sequential integers to v2 at end of loop v2 has 100 elements, values 0 .. 99
+  
+//Read words from the standard input and store them as elements in a vector
+string word;
+vector <string> text; // empty vector
+while (cin >> word) {
+  text.push_back(word); //append word to text
+}
+
+3.3.3 Other vector Operaitons
+//Talbe 3.5. vector Operations
+v.empty() //Returns true if v is empty; otherwise returns false.
+v.size() // Returns the number of elements in v.
+v.push_back(t) //Adds an element with value t to end of v.
+v[n] // Return a references to the element at position n in v.
+v1 = v2 // Replaces the element in v1 with a copy of element in v2
+v1 = {a,b,c .. } //Replaces the element in v1 with a copy of the elements in the comma-separated list.
+v1 == v2 //v1 and v2 are equal if they have the same number of elements and each element in v1 is equal to corresponding element in v2.
+v1 != v2  //Have their normal meaning using dictionary ordering.
+<,<=,>,>=  
+
+vector <int> v{1,2,3,4,5,6,7,8,9};
+for (auto &i : v) // for each elemeent in v (note : is a referenc)
+ i*= i;  // square the element value
+for (auto i : v) // for each element in v
+ cout << i << " " ;
+ cout << endl
+ 
+Note : To use size_type, we must name the type in which it is defined, A vector type always includes its element type
+vector <int> :: size_type // ok
+vector :: size_type // error
+
+Subscripting Does Not Add Elements:
+vector <int> ivec; // empty vector
+for (decltype(ivec.size()) ix = 0; ix != 10; ++ix)
+  ivec[ix] = ix; // disaster : ivec has no elements
+  
+//Ivec is an empty vector; there are no elements to subscript.
+//The subscript operator on vector (and string) fetches an exisitng elements; it oes not add an element
+
+3.4. Introducing Iterators
+//Iterators, have membbers that return iterators.
+//These types have members named begin and end.
+//The begin member returns an iterator that denotes the first element
+
+//The compiler determines the types of b and e;
+//b denoes the first element and e denotes one past the last element in v.
+
+auto b = v.begin(), e = v.end(); //b and e have the same type.
+
+// The iterator returned by end is an iterator positioned " one past the end" of the associated container(or string).
+//This iterator denotes a nonexistent element "off the end" of the container.
+//It used as a marker indicating that all element has been processed.
+//The iterator returned by end is often referred to as the off-the-end iteraotr or the end iterator.
+
+Note : If the container is empty, the iterators returned by begin and end are equal - they are both off-the-end iterators.
+
+Iterator Operations:
+//Table 3.6 Standard Container Iterator Operations
+*iter // Returns a reference to the element denoted by the iterator iter.
+iter -> mem // Dereferenes iter and fetches the member named mem from the underlying element. Equivalent to (*iter) mem
+++iter // Increment iter to refer to the next element in the container.
+--iter // decrements iter to refer to the previous element in the container.
+iter1 == iter2 // Compares two iterators for equality (inequality). Two iterators are equal
+iter1 != iter2 // If they denotes the same element or if they are the off-the-end iterator for the same container.
+
+
+string s("some string");
+if (s.begin() != s.end()) { //make sure s is not empty
+  auto it = s.begin(); // it denotes the first
+  *it = toupper(*it);  // make that character uppercase
+
+
+
