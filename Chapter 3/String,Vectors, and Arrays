@@ -404,5 +404,215 @@ if (s.begin() != s.end()) { //make sure s is not empty
   auto it = s.begin(); // it denotes the first
   *it = toupper(*it);  // make that character uppercase
 
+Moving Iterators from One Element to Another:
+//Iterator use the increment (++) operator to move from one element to the next.
 
+Note: Because the iterator returned from end does not denote an element, it may not incremented or dereferenced.
+
+//Using the increment operator, we can rewrite our program that changed the case of the first word in a string to use iterators instead:
+
+//process characters in s until we run out of characters or we hit a whitespacce.
+for (auto it = s.begin; it != s.end() && !isspace(*it); ++it)
+  *it = toupper(*it) // capitalize the current character
+  
+Iterator Types:
+vector <int> :: iterator it; // it can read and write vector <int> element
+string :: iterator it2; // it2 can read and write character in a string
+vector <int> :: const_interator it3; // it3 can read but not write element.
+string :: const_iterator it4; // it4 can read but not write characters
+
+//A const_iterator behaves like a pointer to const pointer.
+//It can only read but not write.
+//An object o type iterator can both read and write.
+//If a vector or string is const, we may use only its const_iterator type.
+
+The begin and end Operations:
+//The type returned by begin and end depends on whether the object on which they operator is const.
+//If the object is const, the nbegin and end return a const_iterator.
+//If the object is not const, they return iterator.
+
+vector <int> v;
+const vector <int> cv;
+auto it1 = v.begin(); //it1 has type vector <int> :: iterator
+auto it2 = cv.begin(); //it2 has type vector <int> :: const_iterator
+
+//Often this default behavior is not what we want.
+//Therefore, we would use the standard introduced two new functions named cbegin and cend.
+
+auto it3 = v.cbegin() // it3 has type vector <int> :: const_iterator
+
+Combining Dereferencse and Member Access:
+//When we dereference an iterator, we get the object that the iterator denotes.
+//If that object has a class type, we many want to access a member of that object.
+//For instance, we might have a vector of strings and we might need to know whether a given element is empty.
+
+(*it).empty(); //derefernce it and calls the member empty on the resulting object.
+*it.empty() // error : attempts to fetch the member naemd empty from it.
+//but it is an iterator and has no member named empty:
+
+//To simplify expressions such as this once, we would use the arror operator -> operator/
+//The arrow operator combines dereference and member access into a single operation.
+
+//print each line in text up to the first blank size
+for (auto it = text.cbegin; it != text.cend() && !it-> empt(); ++it)
+  cout << *it << endl;
+  
+ Some vector Operations Invalidate Iterators
+ Warning : Loops that use iterator should not add elements to the container to which the iterators refer.
+ 
+ 3.4.2 Iterator Arithmetic
+ //Table 3.7 Operations Supported by vector and string Iterators
+ iter + n // Adding(subtraing an integral value n to (from) an iteratoy uields an iterator that many element forward (backward) within the container. The resulting must denote elements in, or one past the end of the same container.
+ iter - n
+ iter1 += n // Compund-assignment for iterator addition and subtraction. Assigns to iter1 the value of adding n to, or subtracing n from iter1.
+ iter1 -= ni
+ iter1 - iter2 // subtracting two iterators yields the number that when added to the right-hand iterrator yields the left-hand iterator. The iterator must denote elements in, or one past the end of, the same container.
+ >, >=, <, <= // Relational operator on iterators. One iterator is less than another if it refers to an element that appears in the container before the one referred to by the other iterator. The iterators must denote element in or one past the end of, the same container.
+ 
+ Arithmetic Operations On Iterators:
+ //Compute an iterator to the element closest to the midpoint of vi
+ auto mid = vi.begin + vi.size() / 2;
+ 
+ //If Vi has 20 element, then vi.size/2 is 10. 
+ //In this case, we 'd set mid equal to vi.begin() + 10.
+ //Subscrip start at 0, this element is the same as vi[10], the element ten past the first.
+ 
+ if (it < mid)
+ // Process element in the first half of vi
+ 
+ Using Iterator Arithmetic :
+ // text must be sorted.
+ //Binary Search 
+ //beg and end will denote the range we're searching
+ 
+ auto beg = text.begin(), end = text.en();
+ auto mid = text.begin() + (end - beg) / 2; //original midpoint
+ //While there are still element to look at and we havn't yet found sought
+ while (mid != end && *mid != sought) {
+  if (sought < *mid) // is the element we want in the first half?
+     end = mid; //if so, adjust the range to ignore the second half
+  else 
+   beg = mid + 1; //start looking with the lement just after mid;
+  mid = beg + (end - beg) / 2; // new midpoint
+}
+
+3.5 Arrays
+//An array is a data structure that is similar to the library vector type but offers a different trade-offf between performance and flexibility.
+//Unlike a vector, arrays have fixed size, we cannot add element to an array.
+//Because arrays have fixed size, they sometimes offer obetter run-time performance for specialized applications.
+
+Tip : If you don't know exactly how many elements you need, use a vector.
+
+3.51. Defining and Initializing Build-in Arrays
+
+unsigned cnt = 42; // not a constant expression 
+constexpr unsigned sz = 42; // constant expression 
+int arr[10]; // array of ten ints
+int *parr[sz]; // array of 42 pointers to int
+string bad(cnt); // error : cnt is not a constant expression
+string strs[get_size()] ; // ok if get_size is constexpr, error otherwise.
+
+Explicitly Initialzing Array Elements:
+
+const unsignzed sz = 3;
+int ial[sz] = {0,1,2}; // array of three ints with value 0,1,2
+int a2[[ = {0,1,2}; // an array of dimension 3;
+int a3[5] = {0,1,2}; // array size 5, {0,1,2,0,0}
+string a4[3] = {"hi", "bye"} //same as a4[] = {"hi", "bye", ""}
+int a5[2] = {0,1,2} // error : too many initializers.
+
+Character Arrays Are Special:
+//When we use this form of initializaiton, it is important to remember that string literal end with a null character.
+char a1[] = {'c', '+', '+"}: // list initializaiton, no null
+char a2[] = {'c','+','+','\0'}; // list initialization, explicit null
+char a3[] = "c++"; // null terminator added automatically.
+const char a4[6] = "Daniel"; // error : no space for null;
+
+//The definition of a4 is in error. Although the literal contains only six explicit characters, the array size must be at least seven- six to hoolds the literal and one for the null.
+
+No Copy or Assignment:
+
+int a[] = {0,1,2}; // array of three ints
+int a2[] = a; //error : cannot initialiez one array with another
+a2 = a; //error : cannot assign one arrray to another.
+
+Understanding Complicated Array Declarations.
+//Like vectorS, arrays can hold objects of most any type.
+
+int *ptrs[10]; // ptrs is an array of ten pointer to int
+int &refs[10] = /* ? */; // error : no arrays of references
+int (*Parray)[10] = *arr; // Parray points to an array of ten int
+int (&arrRef)[10] = arr; // arrRef refer to an array of ten int;
+
+3.5.2 Accessing the Element of an Array
+//count the number of grades by clusters of ten : 0-0, 10-19,...90-99, 100
+
+unsigned scoes [11] = {}; // 11 buckets, all value initialied to 0;
+unsigned grade;
+while (cn >> grade){
+ if (grade <= 100)
+ ++scores [grade/10]; // increment the counter for the current cluster
+}
+
+for (auto i : scores) // for each counter in scores
+  cout << i << " ";  /print the value of that counter
+  cout << endl;
+
+3.5.3 Pointers and Arrays
+//The compiler ordinarily converts the array to a pointer.
+
+string nums[] = {"one", "two", "three" ] ; //array of strings
+string *p = &nums[0]; // p points to the first element in nums.
+
+string *p2 = nums; // equivalent to p2 = &nums[0]
+
+3.6 Multidimensional Arrays:
+// TWo dimensions:
+int ia[3][4]; //array of size 3; each element is an array of ints of size 4;
+int arr[10][20][30] = {0}; //initialize all element to 0
+
+Initialzing the Element of Multidimensional Array:
+int ia[3][4] = {{0,1,2,3}, {4,5,6,7},{8,9,10,11}};
+
+Subscripting a Multidimensional Array:
+//Asssign the first element of arr to the last element in the last row of ia
+ia[2][3] = arr[0][0][0];
+int (&row)[4] = ia[1] // binds row to the second four element array in ia.
+
+//Nexsted for loops Example to process the elements in a multidimensional Array
+constexpr size_t rowCnt = 3, colCnt = 4;
+for (size_t i = 0; i != rowCnt; ++i) {
+ // for each colums within the row
+ for (sizee_t j = 0; j !+ colCnt; ++j) {
+ //assign the leement's positional index as its value
+  ia[i][j] = i * colCnt + j;
+ }
+}
+
+Using a Range for with Multidimensional Array:
+size_t cnt = 0;
+for (auto &row : ia)  // for every element in the outer array
+ for (auto &col : row) { // for every element in the inner array
+  col = cnt; // give this lemeent the next value
+  ++cnt; // increment cnt;
+ }
+
+Pointers and Multidimensional Arrays
+//Automatically converted to a pointer to the first element in the array
+
+int ia[3][4]; //array of out 3, inner 4
+int (*P)[4} = ia; // p oints to an array of four ints
+p = &ia[2]; // p now points to the lats element in ia
+
+Note : The parentheses in this declaration are essential:
+int *ip[4] ; //array of pointers to int
+int (*ip)[4]; // pointer to an array of four ints
+
+//print the value of each element in ia, with each inner array on its own line
+//p oints to an arry of four ints
+for (auto p = ia; p != ia + 3;++p) {
+ //q points to the first element of an array of four ints; that is, q point to an int
+for (auto q = *P; q != *p +4; ++q)
+  cout << *q << '';
+  cout << endl;
 
