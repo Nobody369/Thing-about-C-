@@ -1,0 +1,208 @@
+Exercise Section 3.1
+//Ex 3.1
+//Rewrite the exercise from 1.4.1 and 2.6.2 with appropriate using declartion
+
+#include <iostream>
+using std :: cout;
+using std :: endl;
+int main()
+{
+  int sum = 0, val = 1;
+  while (val <= 10) {
+  sum += val;
+  ++ val;
+  }
+  cout << "Sum of 1 to 10 inclusive is " << sum << endl;
+  return 0;
+}
+
+Exercises Section 3.2.2
+//Ex 3.2
+//write a program to read the standard input a line at a time. Modify your program to read a word at a time.
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+  string word;
+  cin >> word;
+
+  cout << word << endl;
+   return 0;
+}
+
+//Ex 3.3
+//Explain how whitespace characters are handled in the string input operator and in the getline function.
+
+Answer : The program will seems white space as a gap, separate and read only the part before the white space
+         The getline is including with the whitespace. However, we must use endl to end the current line and flush the buffer.
+
+//Ex 3.4
+//Write a program to read two stringS and report whether the stringS are equal. If not, report which of the two is larger.
+//Now, change the program to report whether the stringS have the same length, and if not report which is longer.
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+  string word1 = "", word2 = "";
+
+  cin >> word1 >> word2;
+
+  if (word1 > word2){
+
+    cout << word1 << " bigger "<< endl;
+  }
+  else if (word2 > word1)
+  {
+    cout << word2 << " bigger " <<endl;
+  }
+  else{
+    cout << "They are equal" << endl;
+  }
+
+   if (word1.size() > word2.size()){
+    cout << word1 << " longer "<< endl;
+  }
+  else if (word2.size() > word1.size())
+  {
+    cout << word2 << " longer "<< endl;
+  }
+  else{
+    cout << "They are equal long" << endl;
+    }
+    return 0;
+}
+
+//Ex 3.5
+//Write a program to read stringS from the standard input, concatenating what is read into one large string.
+//Print the concatenated string. Next, change the program to separate adjacent input stringS by a space
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+  string word1 = "";
+
+  cin >> word1;
+
+  string largeWord = "Hello, " + word1;
+
+  cout << largeWord << endl;
+
+    return 0;
+}
+#include <iostream>
+#include <string>
+/------------------------------------
+using namespace std;
+
+int main()
+{
+      string word1;
+      while (cin >> word1){
+        cout << word1 << endl;
+      }
+
+
+    return 0;
+}
+
+Exercises Section 3.2.3
+//Ex 3.6
+//Use a range for to change all the character in a string to x.
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+     string word1("some character");
+
+     for (auto &i : word1){
+     i = 'X';
+     }
+    cout << word1 << endl;
+    return 0;
+}
+
+//Ex 3.7
+//What would happen if you define the loop control varaible in the previous exercise as type char?
+//Predict the result and then change your program to use a char to see if you were right.
+
+Answer : It will still work, because string is build by a reference of char.
+         while auto type, it just help us automatically select the type that we don't know what type we should use.
+         
+//Ex 3.8
+//Rewrite the program in the first exercise, first using a while and again using a tranditional for loop. 
+//Which of the three approaches do you prefer, and why?
+//While Loop:
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+     int size = 0;
+     string word1("some character");
+
+     while (size < word1.size()){
+        word1[size] = 'X';
+        ++size;
+     }
+
+    cout << word1 << endl;
+    return 0;
+}
+//For loop
+#include <iostream>
+#include <string>
+
+using namespace std;
+int main()
+{
+     string word1("some character");
+
+     for (int i = 0; i < word1.size(); ++i){
+
+        word1[i] = 'X';
+     }
+     cout << word1 << endl;
+     return 0;
+}
+
+Answer : For Range loop is more convenient because it doesn't require the writer to type in more variable and save more space.
+
+//Ex 3.9
+//What does the following program do? Is it valid ? If not, why not?
+string s;
+cout << s[0] << endl;
+
+Answer : It is invalid, because s is an empty string, there's no character inside s.
+
+
+//Ex 3.10
+//Write a program that reads a string of character including punctuation and writes what was read but with the punctuation removed.
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+   string s("hello world!..!.");
+   for (char &c : s)
+       if(!ispunct(c))
+       {
+           cout<<c;
+       }
+}
