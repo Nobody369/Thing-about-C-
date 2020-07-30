@@ -206,3 +206,229 @@ int main()
            cout<<c;
        }
 }
+
+//Ex 3.11
+//Is the following range for legal? If so, what is the type o fc ?
+
+const string s = "Keep out!";
+for (auto &c : s) { /* ... */)
+
+Answer : For now on, the range for loop seem legal.
+Constant string which mean you can't modify it.
+Auto  &c will become into constant char reference c.
+As long as the code inside the loops didn't change c, it would be legal.
+
+Exercises Section 3.3.1
+//Ex 3.12
+//Which, if any, of the following vector definiton are in error ? 
+//For those that are legal, explain what the definition does. 
+// For those that are not legal, explain why they are illegal.
+
+A. vector < vector < int>> ivec;// vector whose elements are vector 
+
+B. vector <string> svec = ivec; // Error : You can't copy an element they were different type.
+
+C. vector <string> svec(10,"null"); // direct initialize, ten string element, each initialized to null
+
+//Ex 3.13
+//How many element are there in each of the following vectorS?
+//What are the values of the elements?
+
+(a) vector <int> v1; // 0 elements
+(b) vector <int> v2(10); // 10 elements with value 0.
+(c) vector <int> v3(10,42); // 10 elements each are 42
+(d) vector <int> v4{10}; // one element, value 10
+(e) vector <int> v5{10,42}; // two elements, value 10 and 42
+(f) vector <string> v6{10}; // size 10, value ""
+(g) vector <string> v7{10,"hi"}; // size 10, value "hi"
+
+Exercises Section 3.3.2
+//Ex 3.14
+//Write a program to read a sequence of intS from cin and store those values in a vector.
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+   int word;
+   vector <int> text;
+   while ( cin >> word ) {
+      text.push_back(word);
+   }
+   for (auto i : text){
+        cout << i << " ";
+   }
+    cout << endl;
+   return 0;
+}
+
+//Ex 3.15
+//Repeat the previous program but read stringS this time.
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    cout << "When you finish typing, please type 1" << endl;
+
+    string word;
+
+   vector <string> text;
+
+   while (cin >> word) {
+
+      if (word == "1"){
+        break;
+      }
+      text.push_back(word);
+   }
+   for (auto i : text){
+        cout << i << " ";
+   }
+    cout << endl;
+   return 0;
+}
+
+Exercises Section 3.3.3
+//Ex 3.16
+//Write a program to print the size and contents of the vectorS from exerciseS were correct.
+//If not restudy until you understnad why you were wrong.
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+   vector <int> v1;
+   vector <int> v2(10);
+   vector <int> v3(10,42);
+   vector <int> v4{10};
+   vector <string> v6{10};
+   vector <string> v7{10,"hi"};
+   for (auto i : v1){
+        cout << i << " ";
+   }
+   cout << endl;
+   cout << v1.size() << endl;
+   return 0;
+}
+
+//Ex 3.17
+//Read a sequence of words from cin and store the values a vector.
+//After you've read all the words, process the vector and change each word to uppercase.
+//Print the transformed elements, eight words to a line.
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    cout << "When you finish typing, please type 1" << endl;
+
+    string word;
+
+   vector <string> text;
+
+   while (cin >> word) {
+
+      if (word == "1"){
+        break;
+      }
+      text.push_back(word);
+   }
+   for (auto &i : text){
+       for (auto &c : i){
+        c = toupper(c);
+        cout << c << " ";
+        cout << endl;
+       }
+   }
+
+   return 0;
+}
+
+//Ex 3.18
+//Is the following program legal? If not, how might you fix it?
+
+vector <int> ivec;
+ivec[0] = 42;
+
+Answer : Illegal, because ivec is empty. Incorrect way to adding the element.
+Should used the push_back operation takes a value and "pushes" that values as a new last element onto the "back" of the vector.
+
+//Ex 3.19
+//List three ways to define a vector and give it ten elements, each with the value 42.
+//Indicate which ways is better and explain why.
+
+vector <int> ivec(10,42);
+vector <int> ivec2{10,10,10,10,10,10,10,10,10,10};
+vector <int> ivec3;
+for range ....
+
+//The first one is better, it used the vector template to help us initialize vectors and give it ten elements,each with the value 42.
+//Other ones need to spend more time, typing one by one.
+
+//Ex 3.20
+//Read a set of integers into a vector.
+//Print the sum of each pair of adjacent elements.
+//Change your program so that it prints the sum of the first and last element.
+//Followed by the sum of the second and second-to-last, and so on.
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    cout << "When you finish typing, please type characters" << endl;
+
+    int word;
+
+   vector <int> text;
+
+   while (cin >> word) {
+
+      text.push_back(word);
+   }
+
+   vector <int> combine;
+   int temp = 0;
+
+   for (int i = 0;i <= text.size();++i){
+    if (i % 2 == 0 && i != 0){
+        combine.push_back(temp);
+        temp = 0;
+    }
+    temp += text[i];
+
+   }
+
+   vector <int> combine2;
+   int temp2 = 0;
+    for (int i = 0; i < combine.size() /2;++i){
+            temp2 = combine[i] + combine [combine.size() - 1 - i];
+            combine2.push_back(temp2);
+
+    }
+
+    for (auto c : combine2){
+        cout << c << " ";
+    }
+    cout << endl;
+   return 0;
+}
+//Hint, this only print out the result of first and last element.However, not sure what the user want to do with the middle element.
+//Therefore, you would see that the middle element dispear.
