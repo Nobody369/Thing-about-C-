@@ -432,3 +432,8 @@ int main()
 }
 //Hint, this only print out the result of first and last element.However, not sure what the user want to do with the middle element.
 //Therefore, you would see that the middle element dispear.
+
+Exercisese Section 3.4.1
+//Ex 3.21
+//Redo the first exercise from 3.3 using iterators
+
