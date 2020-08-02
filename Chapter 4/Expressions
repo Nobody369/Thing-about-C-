@@ -1,0 +1,93 @@
+//An expression is composed of one or more operands and yields a result when it is evaluated.
+//The simplest form of an expression is a single literal or variable.
+//More complicated formed from an operator and one or more opernads.
+
+4.1 Fundamentals
+//4.1.1 Basic Concepts
+//There are oth unary operators and binary operator.
+//Unary operators, such as address-of(&) and dereference(*), act on one operand.
+//Binary operators, such as equality(==) and multliplication (*), act on two operands.
+//Ternary  operatros, that takes three operands, and one operators.
+
+//Sometimes, *, are used as both an unary(dereference) and a binary(multiplcation) operator.
+//The context in which a symbol is used determines whether the symbol represents a unary or binary operator.
+
+Grouping Operators and Operands:
+//To understand expressions with multiple operator required understanding the precedence and associativity of the operators.
+//May depends on the order of evaluation of the operands.
+
+For instance
+//How the operands are grouped of the operators:
+
+5 + 10 * 20 /2
+
+Operand Conversions:
+//Small integral type operands(e.g, bool, char, short, etc.) are generally promoted to a larger integral type, typically int.
+
+Overloaded Operators:
+//We can define what the operator mean when applied to class type.
+//The IO Library >> and << operators and the operator we used with stringS, vectorS, and iterators are all overloaded operators.
+//Using an overloaded operator, which mean the operator-including the type of its operand(s) and the result-depend on how the operator is defined.
+
+Lvalues and Rvalues:
+//Every expression in C++ is either an rvalue(are value) or an lvale(ell value)
+//Inherited from C language
+//lvalues could stand on the left-hand side of an siggnment whereas rvalues could not.
+//In C++, an lvalue expression yields an object or a function.
+//However, some lvalues such as const objects, may not be the left-hand operand of an assignment.
+//Moreover, some expression yield object but return them as rvalues, not lvalues.
+
+//What it means was, when we used an object as an rvalue, we use the object's value(its contents), and an lvalue, stand for object identity(its location in memory)
+
+//Lvalues and rvalues also differ when used with decltype.
+//When we apply decltype to an expression(other than a variable), the result is a reference type if the expression yields an lvalue.
+
+For instance:
+//Assume p is an int*.
+//Because dereference yields an lvalue, decltype(*p) is int&.
+//In other hand, because the address-of operator yields an rvalue, decltype(&p) is int**, that is, a pointer to a pointer to type int.
+
+4.1.2. Precdence and Associativity.
+//An expression with two or more operators is a compound expression.
+//Operands of operator with higher precedence group more tightly than operands of operators at lower precedence.
+//Associativity determines how to group operands with the same precedence.
+
+For instance:
+//Because of precedence, the expression 3+4*5 is 23, not 35.
+//Because of associativity, the expression 20-15-3 is 2, not 8.
+
+Parenthess Override Precedence and Associativity:
+For instance
+cout << (7+3) * (4 -2 ) << endl; // print 20, not 17
+
+When Precedence And Associativity Mattter:
+
+For instance:
+int ia[] = {0,2,4,6,8}; // array with five elements of type int
+int last = *(ia + 4); // initialize last to 8, the value of ia[4]
+last = *ia + 4; // last = 4, equivalent to ia[0] = 4
+
+//If we want to access the element at the location ia+4, the element the parenthese around the addition are essential.
+//Without parenthese, *ia is grouped first and 4 is added to the value in *ia
+
+4.1.3. Order Of Evaluation.
+//Precedence specifies how the operands are grouped.
+//In most cases, the order is largely unspecified.
+
+int i = f1() * f2();
+
+//f1 and f2 will be called then multiply, but we don't know which one will called before others.
+//Therefore, there are four operators that do guarantee the order in which operands are evaluated.
+
+1.Logical And (&&) operator guarantess that its left-hand operand is evaluated first. Also, evaluated right hand when left-hand is true.
+2.Logical Or (||) either true 
+3. Conditional Operator(?:) 
+
+Order of Evalaution, Precedence, and Associativity:
+//Order of operand evaluation is independent of precedence and Associativity.
+//In an expression such as f() + g() * h() + j():
+-Precdence guarantees that the result of g() and h() are multipled.
+-Associativity guarantees that the result of f() is added to the product of g() and h() and that the result of that addition is added to the value of j();
+-There are no guarantees as to the order in which these functions are called.
+
+
