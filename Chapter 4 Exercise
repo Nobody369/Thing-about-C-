@@ -96,3 +96,25 @@ while (cin >> i){
 }
 cout << endl;
  
+//Ex 4.11
+//Write an expression that tests four values, a , b, c, and d, and ensures that a is greater than b,
+which is greater than c, which is greater than d.
+
+int a,b,c,d;
+cin >> a >> b >> c >> d;
+
+if (a > b && a >> c && a >> d) {
+  cout << " a is greater";
+}
+
+//Ex 4.12
+//Assuming i, j, k are all intS, explain what i != j < k means.
+
+int i, j, k;
+i != j < k, it seems like the condition j is not equal to i, and j is less than k.
+//Bool result
+
+i != (j < k)
+
+
+
