@@ -17,3 +17,82 @@ Exercise Section 4.1.3
 //This strategy presents a trade-off between efficient code generation and potentil pitfalls in the use of language by the programer.
 //Do you consider than an acceptable trade off? Why or Why not?
 
+Answer : More convient for me.
+
+Exercises Section 4.2
+//Ex 4.4 Parenthesize the following expression to show how it is evaluated.
+//Test your answer by compiling the expression (without parentheses) and printing its result.
+
+12 / 3 * 4 + 5 * 15 + 24 % 4 / 2;
+
+Answer: ( (12 / 3) * 4) + (5  * 15) + ( (24 % 2 ) / 2) 
+Answer: ( ( 12 / 3 ) * 4) + (5 * 15 ) = 16 + 75 = 91
+
+//Ex 4.5
+//Determine the result of the following expressions.
+(a) -30 * 3 + 21 / 5
+A: -90 + 4.2 = -85.8;
+
+(b) -30 + 3 * 21 / 5
+A: -30 + 63/5 = -30 + 12.6 = -17.4
+
+(c) 30 / 3 * 21 % 5
+A: 10 * 3 % 5 = 30 & 5 = 0
+
+(d) -30 / 3 * 21 % 4
+A: -10 * 21 % 4 = -210  % 4 = -2
+
+//Ex 4.6
+//Write an expression to determine whether an int value is even or odd.
+/*
+int i;
+cin >> i;
+
+if (i % 2 == 0){
+  cout << "even" << endl;
+}
+else{
+  cout << "odd" << endl;
+}
+
+return 0;
+*/
+
+//Ex 4.7
+//What does overflow mean? Show three expression that will overflow
+//The maximum value a type can hold, if it's over, it go reverse and become negative.
+
+Int = 2^31
+double = 2^63
+bool = 2^7
+
+Exercise Section 4.3
+//Ex 4.8
+//Explain when operands are evaluated in the logical AND, logical OR, and equality operators
+AND, &&, when both a and b is true
+
+OR, ||, Either condition is true, then the statement is true.
+
+Equality, when A and B are equal length and same letter. Then the statement is true.
+
+//Ex 4.9
+//Explain the behavior of the condition in the following if:
+
+const char *cp = "Hello World";
+if (cp && *cp)
+/
+//True, because cp is a non-null pointer.
+//True, if the character cp points to is nonzero.
+
+//Ex 4.10
+//Write the condition for a while loop that would read intS from the standard input and stop when the value read is equal to 42.
+
+int i;
+while (cin >> i){
+  if (i == 42){
+    break;
+  } 
+  cout << i;
+}
+cout << endl;
+ 
