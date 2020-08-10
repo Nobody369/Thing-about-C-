@@ -1,0 +1,115 @@
+Section 5.1
+//Simple Statements
+//An expressions, such as ival + 5, becomes an expression statement when it is followed by a semicolon.
+
+ival + 5; //rather useless expression statement
+cout << ival; // useful expression statement
+
+//The first statement is useless because is not used.
+//More commonly, an expression statement contains an expression that has a side effect-such as assigning a new value to a variable.
+
+Null Statements:
+//The simplest statement is the empty statement, also known as a null statement.
+//A null statement is a single semicolon.
+
+;// null statement
+
+//It's useful where the langauge requires a statement but the program's logic does not.
+//Common when a loop's work can be done within its condition.
+
+//FOr instance, read the input only and ignoring everything we read until we encounter a particular value;
+
+while(cin >> s && s != sought){
+  ; //null statement
+}
+
+Beware of Missing or Extraneous Semicolons:
+
+ival = v1 + v2;; // ok: second semicolons is a superfluous null statement
+//It's not that harmful but never do it in the loop
+
+//disaster: extra semicolon: Loop body is this null statement
+while (iter != svec.end()); // the while body is the empty statement
+  ++iter;   // increment is not part of the loop
+  
+Compund Statements(Blocks)
+//A compund statement, usually referred to as a block, is a (possible empty) sequence of statements and declarations surrounded by a pair of curly braces.
+//Basically, using a blocks, to help you avoid your statement contents be manipulate.
+while (val <= 10){
+  sum +=val;
+  ++val;
+}
+
+
+5.2 Statement Scope
+//We can define varaible inside the control structure of the if, switch, while, and for statements.
+//Variables defined in the control structure are visible only within that statement and are out of scope after the statement end:
+
+while (int i = get_num()) // i is created and initialized on each iteration
+  cout << i << endl;
+ i = 0; //error: i is not accessible outside the loop;
+ 
+ //If we need access to the control varaible, then that variable must be defined outside the statement:
+ 
+ //find the first negative element
+ auto beg = v.begin();
+ while (beg != v.end() && *beg >= 0)
+  ++beg;
+ if (beg == v.end())
+  // we know that all elements in v are greater than or equal to zero
+  
+  The value of an object defined in a control sturcutre is used by that strucutre. Therefore, such variable must be initialized.
+  
+ 5.3. Conditional Statements
+ //5.3.1 The if statements:
+ //if,else if, else, nested if, 
+ //dangling else, match the closest preceding unmatched if.
+ if (){
+    if(){
+    }
+    else{
+    }
+ }
+ 
+ 5.3.2 The Switch Statement :
+ //A switch statement provides a convenient way of selecting among a (possibly large) number of fixed alternatives.
+ -Read every character in the input
+ -Compare each character to the set of vowels.
+ -If the character matches one of the voewls, add 1 to that vowel's count
+ -Display th result;
+ 
+unsigned aCnt = 0, eCnt = 0, iCnt = 0, oCnt = 0, uCnt = 0;
+char ch;
+while (cin >> ch) {
+  // if ch is a vowel, increment that appropriate counter 
+  
+  switch (ch) {
+  case 'a' :
+      ++aCnt;
+      break;
+  case 'e' :
+      ++eCnt;
+      break;
+  case 'i' :
+      ++iCnt;
+      break;
+  case 'o' :
+      ++oCnt;
+      break;
+  case 'u' :
+      ++uCnt;
+      break;
+   }
+}
+//Print the sttatements /..../
+
+Control Flow within a switch :
+//After a case label is matched, execution starts at that label and continues across all the remaining caseS or until the program explicitly interrupts it.
+//To avoid executing code for subsequent caseS, we must explicitly tell the compiler to stop execution.
+//By putting break, before the next case label.
+
+Variable Definitions inside the Body of a switch :
+//Unvariable to initialize inside the scope
+
+
+
