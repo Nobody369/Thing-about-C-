@@ -112,4 +112,105 @@ Variable Definitions inside the Body of a switch :
 //Unvariable to initialize inside the scope
 
 
+5.4. Iterative Statement
+//5.4.1 The while statements
+//A while statement repeatedly executes a target statement as long as a condition is true.
+
+while(condition)
+  statement
+//5.4.2 Traditional for statement
+
+The syntactic form of the for statement is:
+for (init-statement condition; expression)
+ statements
+//5.4.3 Range for statement
+//The syntatic form of the range for statement is :
+for (declaration : expression)
+  statement
+  
+//5.4.3 The do while statement
+//A do while statement is like a while but the condition is tested after the statement body completes
+
+do
+  statement
+while(condition)
+
+//In a do, statement is executed before condition is evaluated. condition cannot be empty.
+//Terminate when the condition is false.
+
+5.5. Jump Statements
+//5.5.1 The break statement
+//A break statement : terminates the nearest enclosing while, do while, for, or switch statement.
+//Execution resuems at the statement immediately following the terminated statement
+
+//5.5.2 The continue Statement:
+//Terminates the current iteration of the nearest enclosing loop and immediately begins the next iteration.
+//Like the break statement, a continue inside a nested loop affects ony the nearest enclosing loop/
+//Unlike a break, a continue may appear inside a switch only if that switch is embedded inside an iterative statement.
+
+//For instance:
+string buf;
+while (cin >> buf && !buf.empty()) {
+  if (buf[0] != '_')
+    continue; // get another input
+  /still here? the input starts with an underscore; process buf...
+}
+
+//5.5.3 The goto Statement:
+//A goto statement : provides an unconditional jump from the goto to a another statement in the same function.
+
+The syntactic form of a goto statement is 
+  goto label;
+
+//Where label is an identifier that identifies a statement. 
+//A labeled statement is any statement that is preceded by an identifier followed by a colon:
+
+end : return; //labeled statement;may be the target of a goto.
+
+5.6. try Blocks and Exception Handling
+//To handle anomalous behavior, when the user is putting an unexpected input
+//5.6.1 A throw Expression
+//The detecting part of a program uses a throw expression to traise an exeception.
+//A throw consists of the keyword throw followed by an expression.
+
+if (iterm1.isbn() != iterm2.isbn())
+    throw runtime_error("Data must refer to same ISBN");
+ //if we're still here, the ISBNs are the same
+ cout << item1 + item2 << endl;
+ 
+ //5.6.2 The try Block
+ The general form of a try block is
+ 
+ try{
+    program-statements
+ } catch (exception-declaration) {
+  handler-statements
+ } catch (exception-declaration) {
+  handler-statements
+ }
+ 
+ //A try block begins with the keyword try followed by a block, which as usual, is a sequence of statements enclosed in curly braces.
+ //Following the try block is a list of one or more catch clauses.
+ //A catch consits of three parts: the keyword catch, the declaration of a object within parentheses (referred to as an execption declaration), and a block.
+ 
+ //5.6.3 Standard Exectpion
+ -The exception header defines the most general kind of exception class named exception. It communicates only that an exception occurred but provides no additional information.
+ -The stdexcept header defines several general-purpose exception class, which are listed in Table 5.1
+ 
+ Exception - The most general kind of problem
+ Runtime_error - Problem that can be detected only at run time
+ range error - Run-time error: result generated outisde the range of values that are meaningful
+ overflow_error - Run-time error: computation that overfflowed.
+ underflow_error - Run-time error: computation that underflowed.
+ logic_error - Error in the logic of the program
+ domania_erro - Logic error: argument for which no result exists.
+ invalid_argument - Logic error: inappropriate argument
+ length_error - Logic error: attempt to create an object larger than the maximum size for that type.
+ out_of_range - Logic error : used a value outside the valid range.
+ 
+ -The new header defines the bad_alloc exception type, which we cover in (p.458)
+ -The type_info header defines the bad_cast exception type, which we cover in (p.825).
+ 
+ 
+
 
