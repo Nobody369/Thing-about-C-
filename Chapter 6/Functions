@@ -1,0 +1,89 @@
+6.1 Function Basics
+//A function definition typically consists of a return type, a name, a list of zero or more parameters, and a body.
+//The actions that the function performs are specified in a statement block referred to as the function body.
+
+//We execute a function through the call operator, which is a pair of parentheses.
+//The call operator takes an expression that is a function or points to a function.
+//Inside the parentheses is a comma-separated list of arguments.
+//The arguments are used to initialze the unction's parameters.
+
+//The type of a call expression is the return type off the function.
+
+Writing a Function:
+
+//Example:
+//factorial of val is val * (val - 1) * (val - 2) . . .
+((val - (val - 1) * 1)
+int fact(int val)
+{
+  int ret = 1; // local variable to hold the result as we calculate it
+  while ( val > 1)
+    rek *= val--; // assign ret * val to ret and decrement val
+    
+  return ret;
+}
+
+//Our function is named fact.
+//It takes one int parameter and returns an int value.
+
+Calling a Function:
+
+int main()
+{
+  int j = fact(50); // j equals 120.
+    cout << "5! is " << j << endl;
+    return 0;
+}
+
+//A function call does two things: It initializes the function's parameters from the corresponding argumens, and it transers control to that function.
+//Execution of the calling function is suspended and execution of the called function begins.
+
+Parameters and Arguments:
+//Argument are the initializers for a function's parameters.
+//The first argument initializes the first parameter, and so on.
+
+Function Parameter List
+
+void f1(){ /*...*/} // implicit void parameter list
+void f2(void) {/* ... */ } // explicit void parameter list
+
+int f3 (int v1, v2) { /* ... */ } // error
+int f4(int v1, int v2) { /*...*/ } // ok
+
+Function Return Type
+//Most types can be used as the return type of a function.
+//In particular, the return type can be void, which means that the function does not return a value.
+
+6.1.1 Local Objects
+//In C++, names have scope and objects have lifetimes.
+//Key concepts
+-The scope of a name is the part of the program's text in which that name is visible.
+-The lifetime of an object is the time during the program's execution that the object exists.
+
+-Parameters and variables defined inside a function body are referred to as local variables.
+-They are "local" to that function and hide declarations of the same name made in an outer scope.
+
+Automatic object:
+//Objects that exists only while a block is executing are known as automatic objects.
+//After execution exits a block, the values of the automatic objects created in that block are underfined.
+
+Local static Objects:
+//Each local static object is initialized before the first time execution passes through the object's definition. 
+//Local staticS are not destroyed when a function endsl they are destroyed when the program terminates.
+
+size_t count_calls()
+{
+  static size_t ctr = 0; // value will persists across calls
+  return ++Ctr;
+}
+int main()
+{
+  for (size_t i = 0; i != 10; ++i)
+    cout << count_calls() << endl;
+  return 0;
+}
+
+
+
+
+  
