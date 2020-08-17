@@ -83,6 +83,124 @@ int main()
   return 0;
 }
 
+6.1.2 Function Declarations
+//A function may be defined only oce but may be declared multiple times.
+//With one exception that we'll cover in, we can declare a function that is not defined as long as we never use that function.
+//A function declaration is just like a function definition except that a declaration has no function body.
+//In a declaration, a semicolon replaces the function body.
+//Because a function declaration has no body, there is no need for parameter names.
+
+//parameter names chosen to indicate that the iterators
+denote a range of values to print
+void print (vector <int> :: const_iterator beg, vector <int> :: const_iterator end);
+
+//There three elements are the return type, function name, and parameter types- describe the function's interface.
+
+Function Declarations Go in Header Files
+//Recall the varaibles are declaraed in header files and defined in source files.
+
+6.1.3 Separate Compilation
+//As our programs get more complicated, we'll want to stroe the various parts of the program in separate files.
+//Separate Compilation lets us spilt our programs into several files, each of which can be compiled independently
+
+Compiling and Linking Multiple Source Files
+//As an example, assume that the definition of our fact function is in a file named fact.cc file, and its declaration is in a header file named Chapter 6.h.
+//Our fact.cc file, like any file that uses these functions, will include the Chapter6.h header.
+//We'll store a main function that cals fact in a second file named factMain.cc.
+//To produce an executable file, we must tell the compiler where to find all of the code we use.
+
+For instance:
+$ CC factMain.cc fact.cc # generates factMain.exe or a.out 
+$ CC factMain.cc fact.cc -o main # generates main or main.exe
+
+Here cc is the name of our compiler, $ is our system prompt, and # begins a command-line comment.
+
+6.2 Argument Passing
+//When a parameter is a reference, we say that its corresponding argument is "passed by reference" or that the function is "called by reference."
+//When the argument value is copied, the parameter and argument are independent objects. Wwe say such argument are "passed by value" or alternatively that the function is "called by value".
+
+6.2.1 Passing Argument by Value
+//When we initialize a nonreference type variables, the value of the initializer is copied.
+//Changes made to the variable have no effect on the initializer:
+
+int n = 0;  // ordinary variable of type int
+int i = n; // i is a copy o the value in n
+i = 42; // value in i is changed; n is unchanged 
+
+ret *= val--; // decrements the value of val
+
+//Although fact changes the value of val, that change has no effect on the argument passed to fact. 
+//Calling fact(i) does not change the value of i.
+
+Pointer Parameters 
+//Pointers behave like any other nonreference type. 
+//When we copy a pointer, the value of the pointer is copied.
+//After the copy, the two pointers are distinct.
+//However, a pointer also gives us indirect access to the object to which that pointer points.
+
+int n = 0, i = 42;
+int *p = &n, *q = &i; // p points to nl q points to i
+*p = 42; // value in n is changed; p is unchanged 
+p = q; // p now points to i : values in i and n are unchanged
+
+//The same behavior applies to pointer paraments:
+//function that takes a pointer and sets the pointed to value to zero 
+
+void reset(int *ip)
+{
+  *ip = 0; // changes the value of the object to which ip points
+   ip = 0; // changes only the local copy of ip; the argument is unchanged
+}
+
+//After a call to reset, the object to which the argument points will be 0, but the pointer argument itself is unchanged:
+
+int i = 42;
+reset(&i);    // changes i but not the address of i address of i
+cout << "i = " << i << endl; // prints i = 0;
+
+6.2.2 Passing Arguments by Reference:
+//Recall that operations on a reference are actually operations on the object to which the reference refers:
+
+int n = 0, i = 42;
+int &r = n; // r is bound to n (i.e., r is another name for n)
+r = 42; // n is now 42
+r = i; //n now has the same value as i
+i = r; // i has the same value as n
+
+//function that takes a reference to an int and sets the given object to zero
+void reset(int &i) // i is just another name for the object passed to reset.
+  i = 0; // changes the value of the object to which i refers
+  }
+  
+ Using References to Avoid Copies
+ //Functions must use reference parameters to operate on objects of a type that cannot be copied.
+ 
+ 
+ //compare the length of two strings
+ bool isShorter(const string &s1, const string &s2)
+ {
+    return s1.soze() < s2.size();
+ }
+ 
+ Using Reference Parameters to Return Additional Information
+ //returns the index of the first occurrence of c in s
+ // the reference oarameter occur counts how often c occurs
+ string :: size_type find_char(const string &s, char c, string :: size_type & occurs)
+ {
+  auto ret = s.size(); // position of the ffirst occurence, if any 
+  occurs = 0; // set the occurence count parameter
+  for ( decltype(ret) i = 0; i != s.size(); ++i){
+    if (s[i] == c) {
+       if (ret == s.size()){
+        ret = i; // remember the first occurence of c
+        ++occurs; // increment the occurrence count
+       }
+    }
+  }
+  return ret; // count is returned implicitly in occurs
+ }
+  
+
 
 
 
