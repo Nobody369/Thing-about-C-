@@ -199,6 +199,305 @@ void reset(int &i) // i is just another name for the object passed to reset.
   }
   return ret; // count is returned implicitly in occurs
  }
+ 
+ 6.2.3 Const Parameters and Arguments
+ -When we use parameters that are const, it is important to remember the discussion of top-level const from $2.4.3 (p.63)
+ -As we saw in that section, a top-level const is one that applies to the object itself:
+ 
+ const int ci = 42; // we cannot change ci; const is top-level
+ int i = ci; // when we copy ci, its top-level const is ignored
+ int * const p = &i; // const is top-level; we can't assign to p, because we can't assign const value to a const pointer
+ *p = 0; // ok: changes through p are allowed; i is now 0
+ 
+ //When we copy an argument to initialilze a parameter, a top-level constS are ignored.
+ //We can pass either a const or a nonconst object to a parameter that has a top-level const:
+ 
+ void fcn(const int i) {/* fcn can read but not write to i */
+ }
+ 
+//We can call fcn passing it either a const int or a plain int. The fact that top-level constS are ignored on a parameter has one possibly surprising implication:
+
+void fcn(const int i ){ /* fcn can read but not write to i */}
+
+void fcn(int i) { /* ... */} // error: redefines fcn(int)
+
+//We can define different functions with same names, but only work if their parameters lists are sufficiently different.
+//Because top-level constS are ignored, we can pass exactly the same types to either version of cn.
+//The second version of fcn is an error.
+//Despite appearances, its parameter list doesn't differ from the list in the first version of fcn.
+
+Pointer or Reference Parameters and const
+//We can itialize an object with a low-level const from a nonconst object but not vice versa, and a plain reference must be initialized from an object of the same type.
+
+int i = 42;
+const int *cp = &i; ok : ut cp can't change i
+const int &r = i; ok, but r can't change i
+const int &r2 = 42; 
+int *p = cp; //error: type p and cp don't match
+int &r3 = r; // error: types of r3 and r don't match 
+int &r4 = 42; // error: can't initialize a plain reference from a literal
+
+Exactaly the same initialization rules apply to parameter passing:
+
+int i = 0;
+const int ci= i;
+string :: size_type ctr = 0;
+reset(&i); // call the version of reset that has an int* parameter
+reset(&ci); //error: can't initialize an int* from a pointer to a const int object
+reset(i); // calls the version of rest that has an int& parameter.
+reset(ci); //error: can't bind a plain reference to the const object ci
+reset(42); //error can't find a plain reference to a literal
+reset)ctr); //error: types don't match; ctr has an unsigned type
+
+//Cannot pass a literal, an expression that evaluates to an int, an object that rquires conversion, or a const int object.
+
+Use REFERENCE TO CONST WHEN Possible:
+//Define parameters that a function does not change as references(Common Mistake)
+//Doing so gives the function's caller the misleading impression that the function might change its argument's value.
+//We cannot pass a const object, or a literal, or an object that requires conversion to a plain reference parameter.
+
+6.2.4 Array Parameters
+//Two special properties that affect how we define and use function that operate on arrays;
+//Cannot copy an array
+//When we use an array it is(usually) converted to a pointer.
+
+Using a Marker to Specifiy the Extent of an Array
+//The first apporach to managin array arguments requires the array itself to contain an end marker.
+//C-style strings are stored in character arrays in whcih the last character of the string is followed by a null character.
+//Function that deal with C-style string stop processing the array when they see a null character:
+
+void print(const char *cp)
+{
+  if(cp) // if cp is not a null pointer
+    while (*cp) // so long as the character it points to is not a null character
+      cout << *cp++; // print the character and advance the pointer
+ }
+ 
+ Using the Standard Library Conventions
+ //A second technique used to manage array argument is to pass pointer to the first and one past the last element in the array. This approach is inspired by techniques used in the standard library.
+ 
+ void print(const int*beg, const int *end)
+ {
+  //print every element starting at beg up to but not including end
+  while (beg != end)
+    cout << *beg++ << endl; // print the current element and advance the pointer
+ }
+ 
+ Explicitly Passing a Size Parameter
+ //A third approach for array arguments, which is common in C programs and older C++ programs, is to define a second pararmeter that indicates the size of the array.
+ 
+ //const int ia[] is equivalent to const int* ia
+ //size is passed explicitly and used to control access to element of ia
+ 
+ void print(const int ia[], size_t size)
+ {
+  for (size_t i = 0; i != size; ++i} {
+    cout << ia[i] << endl;
+    }
+  }
+  
+  Array Parameter and const
+  Array Reference Parameters:
+  //As usual, the reference parameter is bound to the corresponding argument, which in this case is an array:
+  
+  // ok : parameter is a reference to an array; the dimension is part of the type
+  
+  void print(int (&arr)[10]){
+    for (auto elem : arr)
+      cout << elem << endl;
+  }
+  
+  6.2.5: main : Handling Command-Line Options:
+  //Up to now, we have defined main with an empty parameter list:
+  //However sometimes need to pass argument to main. The most common use of arguments to main is to let the user specify a set of option to guide the operation of the program.
+  
+6.2.6. Functions with Varying Parameters
+//The new standard provides two primary ways to write a function that takes a varying number of arguments: If all the arguments have the same type, we can pass a library type named initializer_list.
+
+initializer_list Parameters:
+//We can write a function that takes an unknown number of arguments of a single type by using an initializer_list parameter.
+//An initializer_list is a library type that represent an array of values of the specified type.
+
+6.3. Return Types and the return Statement
+//A return statement terminates the function that is currently executing and returns control to the point from which the function was called.
+
+6.3.1 Functions with No Return Value:
+//A return with no value may be used only in a function that has a return type of void.
+//Functions that return void are not required to contain a return.
+//In void function, an implicit return takes place after the function's last statement.
+
+6.3.2. Functions That Return a Value:
+//Return a value in the last statement that match with the method's type.
+
+Never Return a Reference or Pointer to a Local Object
+//When a function completes, its storage is freed. After a function terminates, references to local object refer to memory that is no longer valid:
+
+//disaster: this function returns a reference to a local object
+const string &mainip()
+{
+  string ret;
+  //transform ret in some way
+  if (!ret.empty())
+    return ret; //Wrong : returning a refeence to a local object
+   else
+    return "Empty"; //Wrong : "Empty" is a local temporary string
+ }
+ 
+ //Both of these return statements return an undefined value-.
+ 
+ Functions That Return Class Type and the Call Operator
+ //The call operator has the same precedence as the dot and arrow operators.
+ //Like those operators, the call operator is left associative.
+ //As a reuslt, if a function returns a pointer, reference or object of class type, we can use the result of a call to call a member of the resulting object.
+ 
+ Reference Returns Are Lvalues:
+ //Whether a function call is an lvalue depend on the return type of the function.
+ //Call to functions that return references are lvalues; other return types yield rvalues.
+ 
+ List Initializing the Return Value
+ //The list is used to initialize the temporary that represents the function's return. If the list is empty, that temporary is value initialized. Otherwise, the value of the return depends on the function's return type.
+ 
+ Return from main:
+ //There is one exception to the rule that a function with a return type other than void must return a value: The main function is allowed to terminate 
+ 
+6.4. Overloaded Functions:
+//Function that have same name but different parameter lists and that appear in the same scope are overloaded.
+//For example, in & we defined several functions named print:
+
+void print(const char *cp);
+void print(const int *beg, const int *end);
+void print(const int ia[], size_t size);
+
+//Theses function perform the same general action but apply to different parameter types.
+
+Defining Overloaded Functions
+
+Record lookup(const Account&); // find by Account
+Record lookup(const Phone&); // find by Phone
+Record lookup(const Name&); //find by Name
+
+Account acct;
+Phone phone;
+Record r1= lookup(acct); //call version tha ttakes an Account
+Record r2= lookup(phone); // call version that takes a Phone
+
+//All three functions share the same name, yet they are three distinct functions.
+//The compiler uses the argument type(s) to figure out which function to call.
+//Overloaded function must difer in the number or the type(s) of their parameters.
+//Each of the function above takes a single parameter, but the parameters have different types.
+
+Determining Whether Two Parameter Types Differ
+//Two parameter lists can be identical, even if they don't like the samethe same:
+//each pair declares the same function
+
+Record lookup(const Account &actt);
+Record lookup(const Account&); // parameter names are ignored
+
+typedef Phone Telno;
+Record lookup(const Phone&);
+Record lookup(const Telno&); //Telno and Phone are the same type
+
+//In the first pair, the first declaration names its parameter. Parameter names are only a documentation aid. They do not change the parameter list.
+//In the second pair, it looks like the types are different, but Telno is not a new type; it is a synonym for Pohne.
+
+Overloading and const Parameters:
+//A parameters that has a top-level onst is indistinguishable from one without a top level const:
+
+Record lookup(Phone);
+Record lookup(const Phone): //redeclares Record lookup(Phone)
+
+Record lookup(Phone*);
+Record lookup(Phone * const); // redeclares Record look(Phone*)
+
+//Both declaration declares the same function as the first.
+//We can overloaded based on whether the parameter is a reference to the const or nonconst version of a given type;
+
+const_cast and Overloading :
+//return a reference to the shorter of two strings
+
+const string &shorterString(const string &s1, const string &s2)
+{
+  return s1.size() <= s2.size() ? s1 : s2;
+}
+
+//This function on a pair of nonconst string arguments, but we'll get a reference to a const string as the result.
+
+Calling an Overload Function:
+//Once we have defined a set of overloaded functions, we need to be aable to call them with appropriate argumnents. Function matching (also known as overload resolution) is the process by which a particular function call is associated with a specific function from a set of overloaded ffunctions.
+//The compiler determines which ufnction to call by comparing the argument in the call with the parameters offered by each function in the overload set.
+
+ 
+Debugging :
+1.The assert Preprocessor Macro
+//Assert is a preprocessor macro.
+//A preprocessor macro is a preprocessor macro takes a single expression, which it uses as a condition:
+
+assert)expr);
+
+evaluates expr and if the expression is false, then assert writes a message and terminates the program.
+//If the expression is true, then assert does nothing.
+//Assert macro is defined in the cassert header.
+//Macro names must be unique within the program/ Program that include the cassert header may not define a varaible, function, or other entitiy named assert.
+//Good idea to avoid using the name assert for our own purpose even if we don't include cassert.
+//Check for conditions that "CANNOT HAPPEN"
+
+Ex.
+assert(word.size() > threshold);
+
+6.6. Function Matching
+//The first step of function matching identifies the set of overloaded functions considered for the call.
+//The functions in this set are the candidate functions. 
+//A candidiate function is function with the same name as the called function and for which a declaration is visible at the point of the call.
+//The second step seelect from the set of candidate functions those functions those functions that can called with the argument in the given call.
+
+//The selected functions are the viable functions
+
+6.6.1 Argument Type Conversions
+1. An exact match. An exact match happens when:
+  -The argument and parameter types are identical.
+  -The argument is converted from an array or function type to the corresponding pointer type.
+  -A top-level const is added to or discarded from the argument.
+  
+2. Match through a const conversion.
+3.Matching through a promotion
+4.Match through an arithmetic or pointer conversions.
+5.Match through a class-type conversions.
+
+Functions Matching and const Arguments
+//When we call an overloaded function that differs on whether a reference or pointer parameter refers or points to const, the compiler uses the constnesss of the argument to decide which function to call:
+
+Record lookup(Account&); //function that takes a reference to Account
+Record lookup(const Account&); //new function that takes a const reference
+const Account a;
+Account b;
+lookup(a); // calls lookup(const Account&)
+look(b); // calls lookup(Account&)
+
+6.7 Pointer Functions
+//A pointer that denotes a function rather than an object
+//A function's type is determined by its return type and the type of its parameters.
+
+// compares length of two strings
+bool lengthCompare(const string &, const string &);
+
+//has type bool. To declare a pointer that can point at this function, we declare a pointer in place of the function name:
+
+//pf points to a function returning bool that takes two const string references
+
+const string references
+bool (*pf)(const string &, const string &); // uninitialized
+
+Using Function Pointers:
+//When we use the name of a function as a value, the function is automatically converted to a pointer. 
+//For example, we can assign the address of lengthCompare to pf as follows:
+pf = lengthCompare; //pf now points to the function named LengthCompare
+pf = &lengthCompare; //equivalent assignment: address-of operator is optional
+
+bool b1 = pf("hello", "goodbye"); // calls lengthCompare
+bool b2 = (*pf)("hello", "goodbye"); // equivalent call
+bool b3 = lengthCompare("hello", "goodbye"); // equivalent call
+
+
   
 
 
