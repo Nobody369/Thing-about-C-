@@ -1,0 +1,109 @@
+Exercises Section 6.1
+//Ex 6.1 
+//What is the difference between a parameter and an argument?
+
+Answer: Argument(Actual Parameter) is the statement that recieve values when a call to that function is made
+Formal Parameters, the function's parameters.
+
+//Ex 6.3
+//Write and test your own version of fact
+int main() {
+
+    int factorial(int);
+    int fact, value;
+
+    cin >> value;
+
+    fact = factorial(value);
+
+    cout << "Factorial of a number is: " << fact << endl;
+
+    return 0;
+}
+
+int factorial(int val)
+{
+
+    int ret = 1; // local varaible to hold the result as we calculate it
+        while (val > 1){
+            ret *= (val--);
+        }
+
+    return ret;
+}
+
+//Ex 6.5
+//Write a function to return the absolute value of its argument.
+int main() {
+
+    int absolute(int);
+    int value1, value2;
+
+    cin >> value1;
+
+    value2 = absolute(value1);
+
+    cout << "Absolute number is: " << value2 << endl;
+
+    return 0;
+}
+
+int absolute(int val)
+{
+
+    if (!(val >= 0)){
+        val *= -1;
+    }
+
+    return val;
+}
+
+Ex. 6.10
+//Using pointers, write a function to swap the values of two intS.
+//Test the function by calling it and printing the swapped values.
+
+int main() {
+
+    int h1,h2,*a,*b,temp;
+
+    cin >> h1 >> h2;
+
+
+    a = &h1;
+    b = &h2;
+
+    temp = *b;
+    *b = *a;
+    *a = temp;
+
+    cout << "After Swapping: " << h1 <<  h2 << endl;
+
+
+    return 0;
+}
+
+//Ex 6.2.2
+//Ex 6.11
+//Wrte your own version of reset tha takes a reference
+
+int reset(int &j ){
+
+    j = 0;
+
+    return j;
+}
+
+int main() {
+
+    int j, value;
+
+    cin >> j;
+
+    cout << "Before j reset:" << j << endl;
+
+    value = reset(j);
+
+    cout << "After j reset:" << value << endl;
+
+    return 0;
+}
